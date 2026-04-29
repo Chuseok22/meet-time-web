@@ -10,11 +10,11 @@ on:
       - 'package-lock.json'
 
 env:
-  PROJECT_NAME: project-name # 프로젝트 명
+  PROJECT_NAME: meet-time # 프로젝트 명
   DOCKERHUB_REPO: ${{ secrets.DOCKERHUB_USERNAME }}
   APP_IMAGE_SUFFIX: "-web"
-  MAIN_PORT: "3001"
-  TEST_PORT: "3002"
+  MAIN_PORT: "3005"
+  TEST_PORT: "3000"
   APP_EXPOSE_PORT: "3000"
 
 jobs:
@@ -53,9 +53,6 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.PROJECT_NAME }}${{ env.APP_IMAGE_SUFFIX }}:${{ github.ref_name }}
-          # build-args 에 환경변수 등록 필요
-          build-args: |
-            VITE_API_BASE_URL=https://example.com
           cache-from: type=gha
           cache-to: type=gha,mode=max
 

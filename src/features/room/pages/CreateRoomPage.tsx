@@ -1,5 +1,9 @@
 import { useState, useCallback } from 'react'
+import { useNavigate } from 'react-router-dom'
 import PageLayout from '@/shared/components/ui/PageLayout'
+import { useCreateRoom } from '@/features/room/hooks/useRoom'
+import { ApiException } from '@/shared/types/api.types'
+import { ERROR_MESSAGES } from '@/shared/constants/errorCodes'
 import styles from './CreateRoomPage.module.css'
 
 const ROOM_NAME_MAX = 30
@@ -109,8 +113,11 @@ function Calendar({ selected, onToggle }: CalendarProps) {
 
 /* ── 메인 페이지 ── */
 export default function CreateRoomPage() {
+  const navigate = useNavigate()
+  const createRoom = useCreateRoom()
   const [roomName, setRoomName] = useState('')
   const [selectedDates, setSelectedDates] = useState<Set<string>>(new Set())
+  const [errorMsg, setErrorMsg] = useState('')
 
   const toggleDate = useCallback((key: string) => {
     setSelectedDates(prev => {
@@ -140,9 +147,22 @@ export default function CreateRoomPage() {
 
   const canSubmit = roomName.trim().length > 0 && selectedDates.size > 0
 
-  const handleSubmit = () => {
-    if (!canSubmit) return
-    // TODO: POST /api/rooms 호출 후 방 메인 화면으로 이동
+  const handleSubmit = async () => {
+    if (!canSubmit || createRoom.isPending) return
+    setErrorMsg('')
+    try {
+      const room = await createRoom.mutateAsync({
+        title: roomName.trim(),
+        dates: Array.from(selectedDates).sort(),
+      })
+      navigate(`/room/${room.meetingRoomId}`, { replace: true })
+    } catch (err) {
+      if (err instanceof ApiException) {
+        setErrorMsg(ERROR_MESSAGES[err.errorCode] ?? err.errorMessage)
+      } else {
+        setErrorMsg('방 생성에 실패했어요. 다시 시도해 주세요.')
+      }
+    }
   }
 
   return (
@@ -201,10 +221,18 @@ export default function CreateRoomPage() {
           </div>
         </div>
 
+        {errorMsg && (
+          <p style={{ fontSize: 'var(--text-sm)', color: 'var(--color-error)' }}>{errorMsg}</p>
+        )}
+
         {/* 생성 버튼 */}
         <div className={styles.submitArea}>
-          <button className={styles.submitButton} onClick={handleSubmit} disabled={!canSubmit}>
-            방 만들기
+          <button
+            className={styles.submitButton}
+            onClick={handleSubmit}
+            disabled={!canSubmit || createRoom.isPending}
+          >
+            {createRoom.isPending ? '생성 중…' : '방 만들기'}
           </button>
         </div>
       </div>

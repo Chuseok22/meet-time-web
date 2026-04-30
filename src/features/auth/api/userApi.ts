@@ -5,3 +5,7 @@ export async function getMe(): Promise<UserInfo> {
   const { data } = await apiClient.get<UserInfo>('/api/users/me')
   return data
 }
+
+export async function deleteMe(): Promise<void> {
+  await apiClient.delete('/api/users/me')
+}

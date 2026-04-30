@@ -1,12 +1,21 @@
 import { useNavigate } from 'react-router-dom'
 import PageLayout from '@/shared/components/ui/PageLayout'
+import { useMe } from '@/features/auth/hooks/useUser'
+import { tokenStorage } from '@/shared/api/apiClient'
 import styles from './SelectActionPage.module.css'
 
 export default function SelectActionPage() {
   const navigate = useNavigate()
+  const { data: me } = useMe()
+
+  const rightSlot = tokenStorage.get() ? (
+    <button className={styles.myBtn} onClick={() => navigate('/my')} aria-label="마이페이지">
+      <span className={styles.myBtnAvatar}>{me?.nickname?.[0] ?? '나'}</span>
+    </button>
+  ) : undefined
 
   return (
-    <PageLayout showBack onBack={() => navigate('/')}>
+    <PageLayout showBack onBack={() => navigate('/')} rightSlot={rightSlot}>
       <div className={styles.page}>
         <div className={styles.heading}>
           <h1 className={styles.title}>무엇을<br />하시겠어요?</h1>

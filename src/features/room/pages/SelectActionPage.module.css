@@ -13,7 +13,7 @@
 }
 
 .title {
-  font-family: var(--font-display);
+  font-family: var(--font-sans);
   font-size: var(--text-3xl);
   color: var(--color-text);
   line-height: var(--leading-tight);
@@ -148,6 +148,32 @@
   font-size: var(--text-xs);
   color: var(--color-text-subtle);
   font-weight: var(--font-medium);
+}
+
+/* 마이페이지 버튼 (헤더 우측) */
+.myBtn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--color-accent) 12%, transparent);
+  border: 1.5px solid color-mix(in srgb, var(--color-accent) 25%, transparent);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--duration-fast);
+}
+
+.myBtn:hover {
+  background: color-mix(in srgb, var(--color-accent) 20%, transparent);
+}
+
+.myBtnAvatar {
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--color-accent);
+  font-family: var(--font-sans);
+  line-height: 1;
 }
 
 @keyframes fadeUp {

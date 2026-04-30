@@ -29,7 +29,7 @@
 }
 
 .title {
-  font-family: var(--font-display);
+  font-family: var(--font-sans);
   font-size: var(--text-3xl);
   color: var(--color-text);
   line-height: var(--leading-tight);

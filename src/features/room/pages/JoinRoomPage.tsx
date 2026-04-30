@@ -62,7 +62,7 @@ export default function JoinRoomPage() {
     <PageLayout title="방 참가하기">
       <div className={styles.page}>
         <div className={styles.heading}>
-          <h1 className={styles.title}>참여 코드를<br />입력해 주세요</h1>
+          <h1 className={styles.title}>참여 코드를 입력해 주세요</h1>
           <p className={styles.subtitle}>방장에게 받은 참여 코드를 입력하면 바로 들어갈 수 있어요</p>
         </div>
 

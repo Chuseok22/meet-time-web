@@ -45,7 +45,7 @@ export default function MyPage() {
             </svg>
             <span className={styles.loginPromptTitle}>로그인이 필요해요</span>
             <span className={styles.loginPromptDesc}>
-              소셜 계정으로 로그인하면<br />방 목록 관리, 투표 기록 확인 등을 이용할 수 있어요
+              소셜 계정으로 로그인하면 방 목록 관리, 투표 기록 확인 등을 이용할 수 있어요
             </span>
             <button className={styles.loginBtn} onClick={() => navigate('/')}>
               로그인하러 가기

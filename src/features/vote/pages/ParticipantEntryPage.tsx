@@ -79,7 +79,7 @@ export default function ParticipantEntryPage() {
             </svg>
             {room?.title ?? '투표 참가'}
           </div>
-          <h1 className={styles.title}>이름을<br />알려주세요</h1>
+          <h1 className={styles.title}>이름을 알려주세요</h1>
           <p className={styles.subtitle}>
             {me
               ? '소셜 계정 이름이 자동으로 입력됐어요. 원하시면 변경할 수 있어요.'

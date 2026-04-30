@@ -1,0 +1,259 @@
+.page {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  animation: fadeUp var(--duration-slow) var(--ease-out) both;
+  /* 패딩 없이 그리드가 전체 너비 사용 */
+  padding-bottom: calc(var(--bottom-bar-height) + var(--space-4));
+}
+
+/* ── 상단 안내 ── */
+.guide {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-accent-soft);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-accent-border);
+}
+
+.guideIcon {
+  width: 16px;
+  height: 16px;
+  color: var(--color-accent);
+  flex-shrink: 0;
+}
+
+.guideText {
+  font-size: var(--text-xs);
+  color: var(--color-accent);
+  font-weight: var(--font-medium);
+  line-height: var(--leading-snug);
+}
+
+/* ── 타임슬롯 그리드 ── */
+.gridWrapper {
+  position: relative;
+  overflow-x: auto;
+  overflow-y: visible;
+  -webkit-overflow-scrolling: touch;
+  /* 드래그 중 텍스트 선택 방지 */
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.grid {
+  display: grid;
+  /* 첫 열: 시간 레이블, 나머지: 날짜별 */
+  grid-template-columns: 52px repeat(var(--col-count), minmax(48px, 1fr));
+  gap: 0;
+  min-width: fit-content;
+  width: 100%;
+}
+
+/* 날짜 헤더 행 */
+.gridHeaderSpacer {
+  /* 시간 레이블 열 자리 */
+}
+
+.dateHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--space-2) var(--space-1) var(--space-3);
+  gap: 2px;
+}
+
+.dateHeaderDay {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  font-weight: var(--font-medium);
+}
+
+.dateHeaderNum {
+  font-size: var(--text-base);
+  font-weight: var(--font-bold);
+  color: var(--color-text);
+  font-family: var(--font-mono);
+  line-height: 1;
+}
+
+.dateHeaderNumToday {
+  color: var(--color-accent);
+}
+
+/* 시간 레이블 셀 */
+.timeLabel {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding-right: var(--space-2);
+  padding-top: 2px;
+  /* 셀 높이와 맞춰야 함 */
+  height: 32px;
+}
+
+.timeLabelText {
+  font-size: 10px;
+  font-family: var(--font-mono);
+  color: var(--color-text-subtle);
+  white-space: nowrap;
+  line-height: 1;
+}
+
+/* 시간 그룹 경계선 (정각 시간) */
+.timeLabelHour .timeLabelText {
+  color: var(--color-text-muted);
+  font-weight: var(--font-medium);
+  font-size: var(--text-xs);
+}
+
+/* 슬롯 셀 */
+.slot {
+  height: 32px;
+  border-top: 1px solid var(--color-border-subtle);
+  border-left: 1px solid var(--color-border-subtle);
+  cursor: pointer;
+  position: relative;
+  transition: background var(--duration-fast);
+}
+
+/* 정각 경계 강조 */
+.slotHourBoundary {
+  border-top-color: var(--color-border);
+}
+
+.slot:last-child {
+  border-right: 1px solid var(--color-border-subtle);
+}
+
+/* 선택 상태 */
+.slotSelected {
+  background: var(--color-accent) !important;
+}
+
+.slotSelected::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.08);
+}
+
+/* 호버 (드래그 중 아닐 때) */
+.slot:hover:not(.slotSelected) {
+  background: var(--color-accent-soft);
+}
+
+/* 드래그 프리뷰 */
+.slotDragPreview {
+  background: rgba(232, 80, 10, 0.25) !important;
+}
+
+/* ── 선택 현황 바 ── */
+.selectionBar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-lg);
+}
+
+.selectionBarDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  flex-shrink: 0;
+}
+
+.selectionBarText {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  flex: 1;
+}
+
+.selectionBarCount {
+  font-family: var(--font-mono);
+  font-weight: var(--font-semibold);
+  color: var(--color-accent);
+}
+
+.clearSelectedBtn {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  padding: 0;
+  white-space: nowrap;
+}
+
+.clearSelectedBtn:hover {
+  color: var(--color-accent);
+}
+
+/* ── 하단 고정 버튼 ── */
+.bottomBar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: var(--bottom-bar-height);
+  padding: var(--space-3) var(--space-6) var(--space-5);
+  background: rgba(250, 248, 244, 0.95);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-top: 1px solid var(--color-border-subtle);
+  display: flex;
+  align-items: center;
+  z-index: 20;
+}
+
+.submitButton {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  height: 52px;
+  border-radius: var(--radius-lg);
+  background: var(--color-accent);
+  color: white;
+  font-size: var(--text-base);
+  font-weight: var(--font-semibold);
+  font-family: var(--font-sans);
+  border: none;
+  cursor: pointer;
+  letter-spacing: -0.01em;
+  transition:
+    background var(--duration-fast) var(--ease-out),
+    transform var(--duration-fast) var(--ease-out),
+    box-shadow var(--duration-fast) var(--ease-out);
+  box-shadow: 0 4px 16px rgba(232, 80, 10, 0.3);
+}
+
+.submitButton:hover:not(:disabled) {
+  background: var(--color-accent-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(232, 80, 10, 0.35);
+}
+
+.submitButton:active:not(:disabled) {
+  transform: scale(0.99);
+}
+
+.submitButton:disabled {
+  background: var(--color-border);
+  color: var(--color-text-subtle);
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

@@ -63,19 +63,24 @@
 }
 
 .headerTitle {
-  flex: 1;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: calc(100% - 120px); /* 양쪽 버튼 겹침 방지 */
   text-align: center;
   font-size: var(--text-base);
   font-weight: var(--font-semibold);
   color: var(--color-text);
   letter-spacing: -0.01em;
-  /* 뒤로가기 버튼 너비만큼 보정해 정확히 중앙 정렬 */
-  margin-right: 40px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .headerRight {
   width: 40px;
   flex-shrink: 0;
+  margin-left: auto;
 }
 
 .body {

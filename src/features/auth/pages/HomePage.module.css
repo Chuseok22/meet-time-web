@@ -70,10 +70,11 @@
 }
 
 .logoText {
-  font-family: var(--font-display);
+  font-family: var(--font-sans);
   font-size: var(--text-4xl);
+  font-weight: 800;
   color: var(--color-text);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
   line-height: var(--leading-tight);
 }
 
@@ -127,7 +128,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: var(--space-3);
   font-size: var(--text-base);
   font-weight: var(--font-medium);
   font-family: var(--font-sans);
@@ -190,12 +190,14 @@
 .buttonIcon {
   width: 20px;
   height: 20px;
+  position: absolute;
+  left: var(--space-4);
   flex-shrink: 0;
 }
 
 .buttonText {
-  flex: 1;
   text-align: center;
+  width: 100%;
 }
 
 /* ── 구분선 ── */
@@ -287,6 +289,28 @@
   font-size: var(--text-xs);
   color: var(--color-text-muted);
   line-height: var(--leading-snug);
+}
+
+/* ── OAuth 에러 배너 ── */
+.errorBanner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  background: color-mix(in srgb, var(--color-error) 8%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-error) 25%, transparent);
+  border-radius: var(--radius-lg);
+  font-size: var(--text-sm);
+  color: var(--color-error);
+  line-height: 1.4;
+  position: relative;
+  z-index: 1;
+}
+
+.errorBannerIcon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
 }
 
 /* ── 하단 안내 ── */

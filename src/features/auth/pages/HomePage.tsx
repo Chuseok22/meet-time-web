@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import styles from './HomePage.module.css'
 
 const KAKAO_LOGIN_URL = 'https://api.meet.chuseok22.com/oauth2/authorization/kakao'
@@ -40,6 +40,8 @@ const benefits = [
 
 export default function HomePage() {
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
+  const oauthError = searchParams.get('error') === 'oauth2_failed'
 
   const handleKakaoLogin = () => {
     window.location.href = KAKAO_LOGIN_URL
@@ -76,6 +78,17 @@ export default function HomePage() {
             <span className={styles.taglineEn}>Find the time that works for everyone</span>
           </div>
         </div>
+
+        {/* OAuth 에러 배너 */}
+        {oauthError && (
+          <div className={styles.errorBanner}>
+            <svg className={styles.errorBannerIcon} viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="8" cy="8" r="6.5" />
+              <path d="M8 5v3M8 10.5v.5" />
+            </svg>
+            <span>로그인 중 문제가 생겼어요. 다시 시도해 주세요.</span>
+          </div>
+        )}
 
         {/* 소셜 로그인 버튼 */}
         <div className={styles.authSection}>

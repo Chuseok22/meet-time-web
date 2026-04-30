@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom'
 import styles from './HomePage.module.css'
 
 const KAKAO_LOGIN_URL = 'https://api.meet.chuseok22.com/oauth2/authorization/kakao'
@@ -38,6 +39,8 @@ const benefits = [
 ]
 
 export default function HomePage() {
+  const navigate = useNavigate()
+
   const handleKakaoLogin = () => {
     window.location.href = KAKAO_LOGIN_URL
   }
@@ -47,7 +50,7 @@ export default function HomePage() {
   }
 
   const handleGuestStart = () => {
-    // TODO: 방 선택 화면으로 이동
+    navigate('/select')
   }
 
   return (

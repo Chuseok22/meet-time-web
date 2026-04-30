@@ -7,6 +7,8 @@ import JoinRoomPage from '@/features/room/pages/JoinRoomPage'
 import RoomMainPage from '@/features/room/pages/RoomMainPage'
 import ParticipantEntryPage from '@/features/vote/pages/ParticipantEntryPage'
 import TimeslotVotePage from '@/features/vote/pages/TimeslotVotePage'
+import MyRoomsPage from '@/features/mypage/pages/MyRoomsPage'
+import MyPage from '@/features/mypage/pages/MyPage'
 
 const router = createBrowserRouter([
   { path: '/', element: <HomePage /> },
@@ -17,9 +19,8 @@ const router = createBrowserRouter([
   { path: '/room/:roomId', element: <RoomMainPage /> },
   { path: '/vote/:roomId/entry', element: <ParticipantEntryPage /> },
   { path: '/vote/:roomId/timeslot', element: <TimeslotVotePage /> },
-  // 추후 추가
-  // { path: '/my/rooms', element: <MyRoomsPage /> },
-  // { path: '/my', element: <MyPage /> },
+  { path: '/my/rooms', element: <MyRoomsPage /> },
+  { path: '/my', element: <MyPage /> },
 ])
 
 export default router

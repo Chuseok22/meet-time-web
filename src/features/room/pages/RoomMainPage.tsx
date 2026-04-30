@@ -65,7 +65,7 @@ function getTopSlots(dateAvailability: DateAvailability[], n: number) {
       all.push({ dateKey: date, slot: slotCodeToIndex(timeSlot), count: availabilityCount })
     })
   })
-  return all.sort((a, b) => b.count - a.count).slice(0, n)
+  return all.filter(s => s.count > 0).sort((a, b) => b.count - a.count).slice(0, n)
 }
 
 export default function RoomMainPage() {

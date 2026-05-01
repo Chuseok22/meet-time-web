@@ -18,7 +18,7 @@ export default function SelectActionPage() {
     <PageLayout showBack onBack={() => navigate('/')} rightSlot={rightSlot}>
       <div className={styles.page}>
         <div className={styles.heading}>
-          <h1 className={styles.title}>무엇을<br />하시겠어요?</h1>
+          <h1 className={styles.title}>방을 만들어보세요</h1>
           <p className={styles.subtitle}>새 미팅을 만들거나, 초대받은 방에 참가하세요</p>
         </div>
 

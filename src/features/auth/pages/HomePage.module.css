@@ -1,0 +1,337 @@
+.page {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding: var(--space-8) var(--space-6);
+}
+
+/* 점선 격자 배경 텍스처 */
+.page::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, #D8D0C5 1px, transparent 1px);
+  background-size: 28px 28px;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* 하단 따뜻한 그라디언트 오버레이 */
+.page::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40%;
+  background: linear-gradient(to top, #FAF8F4 20%, transparent);
+  pointer-events: none;
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: var(--max-width);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-8);
+}
+
+/* ── 로고 ── */
+.logoSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-5);
+  animation: fadeUp var(--duration-slow) var(--ease-out) both;
+}
+
+.logoMark {
+  width: 64px;
+  height: 64px;
+  background: var(--color-accent);
+  border-radius: var(--radius-xl);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(232, 80, 10, 0.3);
+}
+
+.logoMarkIcon {
+  width: 32px;
+  height: 32px;
+  color: white;
+}
+
+.logoText {
+  font-family: var(--font-sans);
+  font-size: var(--text-4xl);
+  font-weight: 800;
+  color: var(--color-text);
+  letter-spacing: -0.03em;
+  line-height: var(--leading-tight);
+}
+
+.logoDot {
+  color: var(--color-accent);
+}
+
+.tagline {
+  text-align: center;
+}
+
+.taglineKo {
+  display: block;
+  font-size: var(--text-lg);
+  font-weight: var(--font-medium);
+  color: var(--color-text);
+  letter-spacing: -0.01em;
+  line-height: var(--leading-snug);
+}
+
+.taglineEn {
+  display: block;
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  margin-top: var(--space-1);
+  letter-spacing: 0.01em;
+}
+
+/* ── 버튼 그룹 ── */
+.authSection {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  animation: fadeUp var(--duration-slow) var(--ease-out) 80ms both;
+}
+
+.authLabel {
+  text-align: center;
+  font-size: var(--text-xs);
+  color: var(--color-text-subtle);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-weight: var(--font-medium);
+}
+
+.authButton {
+  width: 100%;
+  height: 52px;
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-base);
+  font-weight: var(--font-medium);
+  font-family: var(--font-sans);
+  transition:
+    transform var(--duration-fast) var(--ease-out),
+    box-shadow var(--duration-fast) var(--ease-out),
+    background-color var(--duration-fast) var(--ease-out);
+  cursor: pointer;
+  border: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.authButton:active {
+  transform: scale(0.98);
+}
+
+/* 카카오 버튼 */
+.kakaoButton {
+  background: var(--color-kakao);
+  color: var(--color-kakao-text);
+  border: 1.5px solid rgba(0, 0, 0, 0.06);
+  box-shadow: var(--shadow-xs);
+}
+
+.kakaoButton:hover {
+  background: #FADC00;
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-1px);
+}
+
+/* 구글 버튼 */
+.googleButton {
+  background: var(--color-google);
+  color: var(--color-google-text);
+  border: 1.5px solid var(--color-border);
+  box-shadow: var(--shadow-xs);
+}
+
+.googleButton:hover {
+  background: var(--color-surface-hover);
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-1px);
+}
+
+/* 게스트 버튼 */
+.guestButton {
+  background: transparent;
+  color: var(--color-text-muted);
+  border: 1.5px dashed var(--color-border);
+}
+
+.guestButton:hover {
+  background: var(--color-surface-hover);
+  color: var(--color-text);
+  border-color: var(--color-text-subtle);
+  transform: translateY(-1px);
+}
+
+.buttonIcon {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  left: var(--space-4);
+  flex-shrink: 0;
+}
+
+.buttonText {
+  text-align: center;
+  width: 100%;
+}
+
+/* ── 구분선 ── */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+}
+
+.dividerLine {
+  flex: 1;
+  height: 1px;
+  background: var(--color-border-subtle);
+}
+
+.dividerText {
+  font-size: var(--text-xs);
+  color: var(--color-text-subtle);
+  font-weight: var(--font-medium);
+  white-space: nowrap;
+}
+
+/* ── 로그인 혜택 ── */
+.benefitsSection {
+  width: 100%;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-xl);
+  padding: var(--space-5);
+  animation: fadeUp var(--duration-slow) var(--ease-out) 160ms both;
+}
+
+.benefitsTitle {
+  font-size: var(--text-xs);
+  font-weight: var(--font-semibold);
+  color: var(--color-text-muted);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-4);
+}
+
+.benefitsList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.benefitItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.benefitIcon {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-md);
+  background: var(--color-accent-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.benefitIconSvg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  color: var(--color-accent);
+}
+
+.benefitText {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.benefitMain {
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--color-text);
+  line-height: var(--leading-tight);
+}
+
+.benefitSub {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  line-height: var(--leading-snug);
+}
+
+/* ── OAuth 에러 배너 ── */
+.errorBanner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  background: color-mix(in srgb, var(--color-error) 8%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-error) 25%, transparent);
+  border-radius: var(--radius-lg);
+  font-size: var(--text-sm);
+  color: var(--color-error);
+  line-height: 1.4;
+  position: relative;
+  z-index: 1;
+}
+
+.errorBannerIcon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+/* ── 하단 안내 ── */
+.footer {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  font-size: var(--text-xs);
+  color: var(--color-text-subtle);
+  line-height: var(--leading-normal);
+  animation: fadeUp var(--duration-slow) var(--ease-out) 240ms both;
+}
+
+/* ── 애니메이션 ── */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

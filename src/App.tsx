@@ -1,8 +1,13 @@
+import { RouterProvider } from 'react-router-dom'
+import { QueryClientProvider } from '@tanstack/react-query'
+import queryClient from '@/shared/lib/queryClient'
+import router from '@/app/router'
+
 function App() {
   return (
-    <main>
-      <h1>Meet Time</h1>
-    </main>
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
   )
 }
 

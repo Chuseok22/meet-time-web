@@ -12,6 +12,7 @@ import MyPage from '@/features/mypage/pages/MyPage'
 
 const router = createBrowserRouter([
   { path: '/', element: <HomePage /> },
+  { path: '/login', element: <HomePage /> },
   { path: '/callback', element: <CallbackPage /> },
   { path: '/select', element: <SelectActionPage /> },
   { path: '/room/create', element: <CreateRoomPage /> },

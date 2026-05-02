@@ -5,5 +5,5 @@ export interface UserInfo {
 }
 
 export interface FirebaseGoogleLoginResponse {
-  token: string
+  accessToken: string
 }

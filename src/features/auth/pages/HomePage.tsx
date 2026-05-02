@@ -74,8 +74,8 @@ export default function HomePage() {
       provider.setCustomParameters({ prompt: 'select_account' })
       const credential = await signInWithPopup(firebaseAuth, provider)
       const firebaseIdToken = await credential.user.getIdToken(true)
-      const { token } = await loginWithFirebaseGoogle(firebaseIdToken)
-      tokenStorage.set(token)
+      const { accessToken } = await loginWithFirebaseGoogle(firebaseIdToken)
+      tokenStorage.set(accessToken)
       queryClient.invalidateQueries({ queryKey: userKeys.me })
       navigate('/select', { replace: true })
     } catch (error) {

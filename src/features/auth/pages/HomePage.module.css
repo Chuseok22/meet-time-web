@@ -159,6 +159,20 @@
   transform: translateY(-1px);
 }
 
+/* 구글 버튼 */
+.googleButton {
+  background: var(--color-google);
+  color: var(--color-google-text);
+  border: 1.5px solid var(--color-border);
+  box-shadow: var(--shadow-xs);
+}
+
+.googleButton:hover {
+  background: var(--color-surface-hover);
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-1px);
+}
+
 /* 게스트 버튼 */
 .guestButton {
   background: transparent;

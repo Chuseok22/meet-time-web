@@ -1,4 +1,6 @@
+import { useEffect } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
+import { tokenStorage } from '@/shared/api/apiClient'
 import styles from './HomePage.module.css'
 
 const KAKAO_LOGIN_URL = 'https://api.meet.chuseok22.com/oauth2/authorization/kakao'
@@ -41,6 +43,15 @@ export default function HomePage() {
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
   const oauthError = searchParams.get('error') === 'oauth2_failed'
+
+  // 이미 로그인된 경우 /select로 이동
+  useEffect(() => {
+    if (tokenStorage.get()) {
+      navigate('/select', { replace: true })
+    }
+  }, [navigate])
+
+  if (tokenStorage.get()) return null
 
   const handleKakaoLogin = () => {
     window.location.href = KAKAO_LOGIN_URL

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import PageLayout from '@/shared/components/ui/PageLayout'
 import { useJoinParticipant } from '@/features/vote/hooks/useParticipant'
@@ -23,12 +23,14 @@ export default function ParticipantEntryPage() {
   const [showPassword, setShowPassword] = useState(false)
   const [errorMsg, setErrorMsg] = useState('')
 
-  /* 로그인 사용자면 닉네임 기본값 설정 */
+  /* me가 처음 로드될 때 한 번만 닉네임 기본값 설정 */
+  const nicknameInitialized = useRef(false)
   useEffect(() => {
-    if (me && !username) {
+    if (me && !nicknameInitialized.current) {
       setUsername(me.nickname)
+      nicknameInitialized.current = true
     }
-  }, [me, username])
+  }, [me])
 
   const handleSubmit = async () => {
     if (!username.trim() || !roomId || joinParticipant.isPending) return

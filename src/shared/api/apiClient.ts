@@ -34,11 +34,14 @@ apiClient.interceptors.response.use(
 
     const { status, data } = error.response
 
-    /* 인증 실패 → 토큰 삭제 후 홈으로 이동 */
+    /* 로그인 상태에서 인증 실패 → 토큰 삭제 후 홈으로 이동 */
     if (status === 401) {
+      const hadToken = tokenStorage.get() !== null
       tokenStorage.remove()
-      window.location.href = '/'
-      return Promise.reject(new ApiException(status, data))
+      if (hadToken) {
+        window.location.href = '/'
+        return Promise.reject(new ApiException(status, data))
+      }
     }
 
     return Promise.reject(

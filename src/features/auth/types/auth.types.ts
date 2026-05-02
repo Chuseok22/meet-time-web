@@ -3,3 +3,7 @@ export interface UserInfo {
   nickname: string
   email: string
 }
+
+export interface FirebaseGoogleLoginResponse {
+  token: string
+}

@@ -1,6 +1,5 @@
 import axios from 'axios'
 import { ApiException } from '@/shared/types/api.types'
-import { ERROR_CODES } from '@/shared/constants/errorCodes'
 
 const TOKEN_KEY = 'accessToken'
 
@@ -35,12 +34,8 @@ apiClient.interceptors.response.use(
 
     const { status, data } = error.response
 
-    /* JWT 만료·무효 → 토큰 삭제 후 홈으로 이동 */
-    if (
-      status === 401 &&
-      (data?.errorCode === ERROR_CODES.TOKEN_EXPIRED ||
-        data?.errorCode === ERROR_CODES.INVALID_TOKEN)
-    ) {
+    /* 인증 실패 → 토큰 삭제 후 홈으로 이동 */
+    if (status === 401) {
       tokenStorage.remove()
       window.location.href = '/'
       return Promise.reject(new ApiException(status, data))

@@ -1,9 +1,13 @@
+import { useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
+import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth'
 import PageSeo from '@/shared/components/seo/PageSeo'
+import { firebaseAuth } from '@/shared/lib/firebaseClient'
+import { loginWithFirebaseGoogle } from '@/features/auth/api/userApi'
+import { tokenStorage } from '@/shared/api/apiClient'
 import styles from './HomePage.module.css'
 
 const KAKAO_LOGIN_URL = 'https://api.meet.chuseok22.com/oauth2/authorization/kakao'
-const GOOGLE_LOGIN_URL = 'https://api.meet.chuseok22.com/oauth2/authorization/google'
 
 const benefits = [
   {
@@ -42,14 +46,30 @@ const benefits = [
 export default function HomePage() {
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
-  const oauthError = searchParams.get('error') === 'oauth2_failed'
+  const [googleError, setGoogleError] = useState(false)
+  const [isGoogleLoading, setIsGoogleLoading] = useState(false)
+  /* 카카오는 서버 OAuth2 — URL 파라미터로 에러 전달, 구글은 로컬 상태 */
+  const oauthError = searchParams.get('error') === 'oauth2_failed' || googleError
 
   const handleKakaoLogin = () => {
     window.location.href = KAKAO_LOGIN_URL
   }
 
-  const handleGoogleLogin = () => {
-    window.location.href = GOOGLE_LOGIN_URL
+  const handleGoogleLogin = async () => {
+    setGoogleError(false)
+    setIsGoogleLoading(true)
+    try {
+      const provider = new GoogleAuthProvider()
+      const result = await signInWithPopup(firebaseAuth, provider)
+      const idToken = await result.user.getIdToken()
+      const { accessToken } = await loginWithFirebaseGoogle(idToken)
+      tokenStorage.set(accessToken)
+      navigate('/select', { replace: true })
+    } catch {
+      setGoogleError(true)
+    } finally {
+      setIsGoogleLoading(false)
+    }
   }
 
   const handleGuestStart = () => {
@@ -102,9 +122,10 @@ export default function HomePage() {
           <button
             className={`${styles.authButton} ${styles.googleButton}`}
             onClick={handleGoogleLogin}
+            disabled={isGoogleLoading}
           >
             <GoogleIcon className={styles.buttonIcon} />
-            <span className={styles.buttonText}>구글로 계속하기</span>
+            <span className={styles.buttonText}>{isGoogleLoading ? '로그인 중…' : '구글로 계속하기'}</span>
           </button>
 
           <div className={styles.divider}>

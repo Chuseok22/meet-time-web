@@ -5,6 +5,7 @@ import PageSeo from '@/shared/components/seo/PageSeo'
 import { useRoom } from '@/features/room/hooks/useRoom'
 import { slotCodeToIndex } from '@/shared/utils/timeSlot'
 import type { DateAvailability } from '@/features/room/types/room.types'
+import AdBanner from '@/shared/components/ui/AdBanner'
 import styles from './RoomMainPage.module.css'
 
 /* ── 상수 ── */
@@ -246,6 +247,8 @@ export default function RoomMainPage() {
           </div>
         )}
       </div>
+
+      <AdBanner adSlot="6375041544" />
 
       <div className={styles.bottomBar}>
         <button className={styles.voteButton} onClick={handleVote}>

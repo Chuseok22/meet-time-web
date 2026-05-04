@@ -3,6 +3,7 @@ import PageLayout from '@/shared/components/ui/PageLayout'
 import { useMe } from '@/features/auth/hooks/useUser'
 import { tokenStorage } from '@/shared/api/apiClient'
 import PageSeo from '@/shared/components/seo/PageSeo'
+import AdBanner from '@/shared/components/ui/AdBanner'
 import styles from './SelectActionPage.module.css'
 
 export default function SelectActionPage() {
@@ -68,6 +69,8 @@ export default function SelectActionPage() {
             </svg>
           </button>
         </div>
+
+        <AdBanner adSlot="2005475130" />
       </div>
     </PageLayout>
   )

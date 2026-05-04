@@ -5,6 +5,7 @@ import PageSeo from '@/shared/components/seo/PageSeo'
 import { firebaseAuth } from '@/shared/lib/firebaseClient'
 import { loginWithFirebaseGoogle } from '@/features/auth/api/userApi'
 import { tokenStorage } from '@/shared/api/apiClient'
+import AdBanner from '@/shared/components/ui/AdBanner'
 import styles from './HomePage.module.css'
 
 const KAKAO_LOGIN_URL = 'https://api.meet.chuseok22.com/oauth2/authorization/kakao'
@@ -157,6 +158,8 @@ export default function HomePage() {
           </ul>
         </div>
       </div>
+
+      <AdBanner adSlot="7881670694" />
 
       <p className={styles.footer}>
         로그인 없이도 방을 만들고 참여할 수 있어요

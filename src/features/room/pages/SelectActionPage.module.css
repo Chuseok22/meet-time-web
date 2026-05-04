@@ -68,9 +68,9 @@
 }
 
 .cardPrimary:hover {
-  background: #FCE8DE;
+  background: var(--color-accent-soft);
   border-color: var(--color-accent);
-  box-shadow: 0 4px 20px rgba(232, 80, 10, 0.15);
+  box-shadow: 0 4px 20px rgba(59, 91, 219, 0.15);
 }
 
 .cardIcon {

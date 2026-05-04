@@ -1,46 +1,46 @@
-/* Warm Grid 디자인 시스템 토큰 */
+/* Precision Light 디자인 시스템 토큰 */
 
 :root {
   /* ── 색상 팔레트 ── */
-  --color-bg: #FAF8F4;
+  --color-bg: #F5F7FC;
   --color-surface: #FFFFFF;
-  --color-surface-hover: #F5F2ED;
-  --color-border: #E8E2D9;
-  --color-border-subtle: #F0EBE3;
+  --color-surface-hover: #EDF0F9;
+  --color-border: #D8DDE9;
+  --color-border-subtle: #E8EAEF;
 
   /* 텍스트 */
-  --color-text: #1C1917;
-  --color-text-muted: #9B8E84;
-  --color-text-subtle: #C4B8AE;
+  --color-text: #111827;
+  --color-text-muted: #5E6A84;
+  --color-text-subtle: #9AA3B8;
 
-  /* 액센트 — 코럴-오렌지 */
-  --color-accent: #E8500A;
-  --color-accent-hover: #D04508;
-  --color-accent-soft: #FDF0EA;
-  --color-accent-border: #F5C4A8;
+  /* 액센트 — 인디고 블루 */
+  --color-accent: #3B5BDB;
+  --color-accent-hover: #3451C7;
+  --color-accent-soft: rgba(59, 91, 219, 0.08);
+  --color-accent-border: rgba(59, 91, 219, 0.22);
 
-  /* 세컨더리 — 세이지 그린 */
-  --color-secondary: #4A6741;
-  --color-secondary-hover: #3B5434;
-  --color-secondary-soft: #EEF3EC;
+  /* 세컨더리 — 틸 그린 */
+  --color-secondary: #1B7C5A;
+  --color-secondary-hover: #166348;
+  --color-secondary-soft: rgba(27, 124, 90, 0.07);
 
   /* 소셜 로그인 */
   --color-kakao: #FEE500;
   --color-kakao-text: #191919;
   --color-google: #FFFFFF;
-  --color-google-text: #1C1917;
+  --color-google-text: #111827;
 
   /* 히트맵 (투표 결과 시각화) */
-  --color-heatmap-0: #F0EBE3;
-  --color-heatmap-1: #F9D4BE;
-  --color-heatmap-2: #F5B08A;
-  --color-heatmap-3: #EF8050;
-  --color-heatmap-4: #E8500A;
-  --color-heatmap-selected: #D04508;
+  --color-heatmap-0: #E8EAEF;
+  --color-heatmap-1: #B4C0F2;
+  --color-heatmap-2: #7B95EA;
+  --color-heatmap-3: #4F72E3;
+  --color-heatmap-4: #3B5BDB;
+  --color-heatmap-selected: #3451C7;
 
   /* 상태 */
-  --color-success: #2D7A3A;
-  --color-error: #C0392B;
+  --color-success: #059669;
+  --color-error: #DC2626;
   --color-warning: #D97706;
 
   /* ── 타이포그래피 ── */
@@ -90,10 +90,10 @@
   --radius-full: 9999px;
 
   /* ── 그림자 ── */
-  --shadow-xs: 0 1px 2px rgba(28, 25, 23, 0.05);
-  --shadow-sm: 0 2px 6px rgba(28, 25, 23, 0.07);
-  --shadow-md: 0 4px 16px rgba(28, 25, 23, 0.09);
-  --shadow-lg: 0 8px 32px rgba(28, 25, 23, 0.12);
+  --shadow-xs: 0 1px 2px rgba(17, 24, 39, 0.06);
+  --shadow-sm: 0 2px 6px rgba(17, 24, 39, 0.08);
+  --shadow-md: 0 4px 16px rgba(17, 24, 39, 0.10);
+  --shadow-lg: 0 8px 32px rgba(17, 24, 39, 0.13);
 
   /* ── 전환 ── */
   --duration-fast: 120ms;

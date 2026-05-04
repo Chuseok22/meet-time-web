@@ -148,7 +148,7 @@
 
 /* 드래그 프리뷰 */
 .slotDragPreview {
-  background: rgba(232, 80, 10, 0.25) !important;
+  background: rgba(59, 91, 219, 0.25) !important;
 }
 
 /* ── 선택 현황 바 ── */
@@ -206,7 +206,7 @@
   right: 0;
   height: var(--bottom-bar-height);
   padding: var(--space-3) var(--space-6) var(--space-5);
-  background: rgba(250, 248, 244, 0.95);
+  background: rgba(245, 247, 252, 0.95);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   border-top: 1px solid var(--color-border-subtle);
@@ -233,13 +233,13 @@
     background var(--duration-fast) var(--ease-out),
     transform var(--duration-fast) var(--ease-out),
     box-shadow var(--duration-fast) var(--ease-out);
-  box-shadow: 0 4px 16px rgba(232, 80, 10, 0.3);
+  box-shadow: 0 4px 16px rgba(59, 91, 219, 0.3);
 }
 
 .submitButton:hover:not(:disabled) {
   background: var(--color-accent-hover);
   transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(232, 80, 10, 0.35);
+  box-shadow: 0 6px 20px rgba(59, 91, 219, 0.35);
 }
 
 .submitButton:active:not(:disabled) {

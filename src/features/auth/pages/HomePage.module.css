@@ -4,37 +4,14 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  position: relative;
-  overflow: hidden;
   padding: var(--space-8) var(--space-6);
-}
-
-/* 점선 격자 배경 텍스처 */
-.page::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: radial-gradient(circle, #D8D0C5 1px, transparent 1px);
-  background-size: 28px 28px;
-  opacity: 0.5;
-  pointer-events: none;
-}
-
-/* 하단 따뜻한 그라디언트 오버레이 */
-.page::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 40%;
-  background: linear-gradient(to top, #FAF8F4 20%, transparent);
-  pointer-events: none;
+  /* dot 없는 대기감 — 최상단에 인디고 기반의 매우 미세한 빛 */
+  background:
+    radial-gradient(ellipse 90% 40% at 50% -5%, rgba(59, 91, 219, 0.07) 0%, transparent 70%),
+    var(--color-bg);
 }
 
 .content {
-  position: relative;
-  z-index: 1;
   width: 100%;
   max-width: var(--max-width);
   display: flex;
@@ -60,7 +37,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 8px 24px rgba(232, 80, 10, 0.3);
+  box-shadow: 0 8px 24px rgba(59, 91, 219, 0.3);
 }
 
 .logoMarkIcon {
@@ -69,12 +46,13 @@
   color: white;
 }
 
+/* 세리프 로고 — 산세리프 UI와의 대비로 브랜드 개성 부여 */
 .logoText {
-  font-family: var(--font-sans);
+  font-family: var(--font-display);
   font-size: var(--text-4xl);
-  font-weight: 800;
+  font-weight: 400;
   color: var(--color-text);
-  letter-spacing: -0.03em;
+  letter-spacing: -0.02em;
   line-height: var(--leading-tight);
 }
 
@@ -110,15 +88,6 @@
   flex-direction: column;
   gap: var(--space-3);
   animation: fadeUp var(--duration-slow) var(--ease-out) 80ms both;
-}
-
-.authLabel {
-  text-align: center;
-  font-size: var(--text-xs);
-  color: var(--color-text-subtle);
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  font-weight: var(--font-medium);
 }
 
 .authButton {
@@ -228,14 +197,15 @@
   border: 1px solid var(--color-border-subtle);
   border-radius: var(--radius-xl);
   padding: var(--space-5);
+  box-shadow: var(--shadow-xs);
   animation: fadeUp var(--duration-slow) var(--ease-out) 160ms both;
 }
 
 .benefitsTitle {
   font-size: var(--text-xs);
   font-weight: var(--font-semibold);
-  color: var(--color-text-muted);
-  letter-spacing: 0.04em;
+  color: var(--color-text-subtle);
+  letter-spacing: 0.05em;
   text-transform: uppercase;
   margin-bottom: var(--space-4);
 }
@@ -303,8 +273,7 @@
   font-size: var(--text-sm);
   color: var(--color-error);
   line-height: 1.4;
-  position: relative;
-  z-index: 1;
+  width: 100%;
 }
 
 .errorBannerIcon {
@@ -315,8 +284,6 @@
 
 /* ── 하단 안내 ── */
 .footer {
-  position: relative;
-  z-index: 1;
   text-align: center;
   font-size: var(--text-xs);
   color: var(--color-text-subtle);

@@ -30,7 +30,7 @@ export default function MyRoomsPage() {
   }
 
   return (
-    <PageLayout title="내 방 목록" showBack onBack={() => navigate('/select')}>
+    <PageLayout title="내 방 목록" showBack onBack={() => navigate('/my')}>
       <PageSeo title="내 방 목록" noIndex />
       <div className={styles.page}>
         <div className={styles.tabs}>

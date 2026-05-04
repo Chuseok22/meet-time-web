@@ -159,11 +159,11 @@ export default function HomePage() {
         </div>
       </div>
 
-      <AdBanner adSlot="7881670694" />
-
       <p className={styles.footer}>
         로그인 없이도 방을 만들고 참여할 수 있어요
       </p>
+
+      <AdBanner adSlot="7881670694" />
     </div>
   )
 }

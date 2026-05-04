@@ -28,7 +28,7 @@ export default function PageLayout({
 
   return (
     <div className={styles.layout}>
-      {(showBack || title) && (
+      {(showBack || title || rightSlot) && (
         <header className={styles.header}>
           {showBack && (
             <button className={styles.backButton} onClick={handleBack} aria-label="뒤로가기">

@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import PageLayout from '@/shared/components/ui/PageLayout'
+import PageSeo from '@/shared/components/seo/PageSeo'
 import { useJoinParticipant } from '@/features/vote/hooks/useParticipant'
 import { useMe } from '@/features/auth/hooks/useUser'
 import { useRoom } from '@/features/room/hooks/useRoom'
@@ -73,6 +74,7 @@ export default function ParticipantEntryPage() {
 
   return (
     <PageLayout title="참가자 정보">
+      <PageSeo title="참가자 정보 입력" noIndex />
       <div className={styles.page}>
         <div className={styles.heading}>
           <div className={styles.roomTag}>

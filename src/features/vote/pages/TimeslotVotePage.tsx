@@ -1,6 +1,7 @@
 import { useState, useCallback, useRef, useEffect, useMemo } from 'react'
 import { useNavigate, useParams, useLocation } from 'react-router-dom'
 import PageLayout from '@/shared/components/ui/PageLayout'
+import PageSeo from '@/shared/components/seo/PageSeo'
 import { useSubmitTime } from '@/features/vote/hooks/useParticipant'
 import { selectedSlotsToRequest, responseToSelectedSlots } from '@/shared/utils/timeSlot'
 import { ApiException } from '@/shared/types/api.types'
@@ -157,6 +158,7 @@ export default function TimeslotVotePage() {
 
   return (
     <PageLayout title="시간 선택">
+      <PageSeo title="시간 선택" noIndex />
       <div className={styles.page}>
         <div className={styles.guide}>
           <svg className={styles.guideIcon} viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">

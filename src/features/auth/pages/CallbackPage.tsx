@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useQueryClient } from '@tanstack/react-query'
+import PageSeo from '@/shared/components/seo/PageSeo'
 import { tokenStorage } from '@/shared/api/apiClient'
 import { userKeys } from '@/features/auth/hooks/useUser'
 import styles from './CallbackPage.module.css'
@@ -25,6 +26,7 @@ export default function CallbackPage() {
 
   return (
     <div className={styles.page}>
+      <PageSeo noIndex />
       <div className={styles.spinner} aria-hidden="true" />
       <p className={styles.text}>로그인 처리 중…</p>
     </div>

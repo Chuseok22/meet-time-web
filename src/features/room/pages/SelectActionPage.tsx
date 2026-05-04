@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import PageLayout from '@/shared/components/ui/PageLayout'
 import { useMe } from '@/features/auth/hooks/useUser'
 import { tokenStorage } from '@/shared/api/apiClient'
+import PageSeo from '@/shared/components/seo/PageSeo'
 import styles from './SelectActionPage.module.css'
 
 export default function SelectActionPage() {
@@ -16,6 +17,7 @@ export default function SelectActionPage() {
 
   return (
     <PageLayout showBack onBack={() => navigate('/')} rightSlot={rightSlot}>
+      <PageSeo title="방 선택" />
       <div className={styles.page}>
         <div className={styles.heading}>
           <h1 className={styles.title}>방을 만들어보세요</h1>

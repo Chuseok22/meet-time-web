@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import PageLayout from '@/shared/components/ui/PageLayout'
+import PageSeo from '@/shared/components/seo/PageSeo'
 import { useRoom } from '@/features/room/hooks/useRoom'
 import { slotCodeToIndex } from '@/shared/utils/timeSlot'
 import type { DateAvailability } from '@/features/room/types/room.types'
@@ -114,6 +115,7 @@ export default function RoomMainPage() {
 
   return (
     <PageLayout showBack onBack={() => navigate('/select')}>
+      <PageSeo title="미팅 방" noIndex />
       <div className={styles.page}>
         {/* 방 정보 카드 */}
         <div className={styles.roomCard}>

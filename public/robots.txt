@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://meet.chuseok22.com/sitemap.xml

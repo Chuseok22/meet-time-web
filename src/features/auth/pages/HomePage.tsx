@@ -7,6 +7,7 @@ import { firebaseAuth } from '@/shared/lib/firebaseClient'
 import { loginWithFirebaseGoogle } from '@/features/auth/api/userApi'
 import { userKeys } from '@/features/auth/hooks/useUser'
 import { tokenStorage } from '@/shared/api/apiClient'
+import PageSeo from '@/shared/components/seo/PageSeo'
 import styles from './HomePage.module.css'
 
 const KAKAO_LOGIN_URL = 'https://api.meet.chuseok22.com/oauth2/authorization/kakao'
@@ -95,6 +96,7 @@ export default function HomePage() {
 
   return (
     <div className={styles.page}>
+      <PageSeo />
       <div className={styles.content}>
         {/* 로고 */}
         <div className={styles.logoSection}>

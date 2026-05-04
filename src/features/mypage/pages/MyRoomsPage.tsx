@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import PageLayout from '@/shared/components/ui/PageLayout'
+import PageSeo from '@/shared/components/seo/PageSeo'
 import { useMyRooms } from '@/features/room/hooks/useRoom'
 import { tokenStorage } from '@/shared/api/apiClient'
 import type { MyRoom } from '@/features/room/types/room.types'
@@ -30,6 +31,7 @@ export default function MyRoomsPage() {
 
   return (
     <PageLayout title="내 방 목록" showBack onBack={() => navigate('/select')}>
+      <PageSeo title="내 방 목록" noIndex />
       <div className={styles.page}>
         <div className={styles.tabs}>
           <button

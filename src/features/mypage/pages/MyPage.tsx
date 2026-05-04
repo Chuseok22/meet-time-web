@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import PageLayout from '@/shared/components/ui/PageLayout'
+import PageSeo from '@/shared/components/seo/PageSeo'
 import { useMe, useDeleteMe } from '@/features/auth/hooks/useUser'
 import { tokenStorage } from '@/shared/api/apiClient'
 import { ApiException } from '@/shared/types/api.types'
@@ -36,6 +37,7 @@ export default function MyPage() {
 
   return (
     <PageLayout title="마이페이지" showBack onBack={() => navigate('/select')}>
+      <PageSeo title="마이페이지" noIndex />
       <div className={styles.page}>
         {!isLoggedIn ? (
           <div className={styles.loginPrompt}>

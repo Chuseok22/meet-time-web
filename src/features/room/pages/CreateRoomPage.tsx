@@ -4,6 +4,7 @@ import PageLayout from '@/shared/components/ui/PageLayout'
 import { useCreateRoom } from '@/features/room/hooks/useRoom'
 import { ApiException } from '@/shared/types/api.types'
 import { ERROR_MESSAGES } from '@/shared/constants/errorCodes'
+import PageSeo from '@/shared/components/seo/PageSeo'
 import styles from './CreateRoomPage.module.css'
 
 const ROOM_NAME_MAX = 30
@@ -167,6 +168,7 @@ export default function CreateRoomPage() {
 
   return (
     <PageLayout title="새 방 만들기">
+      <PageSeo title="새 방 만들기" />
       <div className={styles.page}>
         {/* 방 이름 */}
         <div className={styles.section}>

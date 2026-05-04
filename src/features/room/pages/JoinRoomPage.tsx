@@ -4,6 +4,7 @@ import PageLayout from '@/shared/components/ui/PageLayout'
 import { useRoomByJoinCode } from '@/features/room/hooks/useRoom'
 import { ApiException } from '@/shared/types/api.types'
 import { ERROR_CODES, ERROR_MESSAGES } from '@/shared/constants/errorCodes'
+import PageSeo from '@/shared/components/seo/PageSeo'
 import styles from './JoinRoomPage.module.css'
 
 /* joinCode 형식: AB1-CD2 (대소문자 구분, 서버 Base58 패턴) */
@@ -60,6 +61,7 @@ export default function JoinRoomPage() {
 
   return (
     <PageLayout title="방 참가하기">
+      <PageSeo title="방 참가하기" />
       <div className={styles.page}>
         <div className={styles.heading}>
           <h1 className={styles.title}>참여 코드를 입력해 주세요</h1>

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, Fragment } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import PageLayout from '@/shared/components/ui/PageLayout'
 import PageSeo from '@/shared/components/seo/PageSeo'
@@ -197,8 +197,8 @@ export default function RoomMainPage() {
               })}
 
               {Array.from({ length: SLOTS_PER_DAY }, (_, slotIdx) => (
-                <>
-                  <div key={`lbl-${slotIdx}`} className={`${styles.heatmapTimeLabel} ${isHourBoundary(slotIdx) ? styles.heatmapTimeLabelHour : ''}`}>
+                <Fragment key={slotIdx}>
+                  <div className={`${styles.heatmapTimeLabel} ${isHourBoundary(slotIdx) ? styles.heatmapTimeLabelHour : ''}`}>
                     <span className={styles.heatmapTimeLabelText}>{slotLabel(slotIdx)}</span>
                   </div>
                   {room.dates.map(dk => {
@@ -215,7 +215,7 @@ export default function RoomMainPage() {
                       />
                     )
                   })}
-                </>
+                </Fragment>
               ))}
             </div>
           </div>

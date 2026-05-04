@@ -1,0 +1,6 @@
+.wrapper {
+  width: 100%;
+  min-height: 100px;
+  margin-top: var(--space-lg, 24px);
+  overflow: hidden;
+}

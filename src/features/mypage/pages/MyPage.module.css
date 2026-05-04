@@ -86,13 +86,13 @@
 }
 
 .menuItem:hover {
-  background: var(--color-surface-alt);
+  background: var(--color-surface-hover);
 }
 
 .menuIcon {
   width: 18px;
   height: 18px;
-  color: var(--color-text-sub);
+  color: var(--color-text-muted);
   flex-shrink: 0;
 }
 
@@ -138,7 +138,7 @@
 .loginPromptTitle {
   font-size: var(--text-base);
   font-weight: 600;
-  color: var(--color-text-sub);
+  color: var(--color-text-muted);
 }
 
 .loginPromptDesc {
@@ -255,8 +255,8 @@
   padding: var(--space-3);
   font-size: var(--text-sm);
   font-weight: 600;
-  color: var(--color-text-sub);
-  background: var(--color-surface-alt);
+  color: var(--color-text-muted);
+  background: var(--color-surface-hover);
   border: none;
   border-radius: var(--radius-lg);
   cursor: pointer;

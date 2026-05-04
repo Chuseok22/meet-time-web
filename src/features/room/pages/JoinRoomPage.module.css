@@ -73,7 +73,7 @@
 
 .codeInput:focus {
   border-color: var(--color-accent);
-  box-shadow: 0 0 0 3px rgba(232, 80, 10, 0.1);
+  box-shadow: 0 0 0 3px rgba(59, 91, 219, 0.12);
 }
 
 .codeInput.codeInputError {
@@ -181,13 +181,13 @@
     background var(--duration-fast) var(--ease-out),
     transform var(--duration-fast) var(--ease-out),
     box-shadow var(--duration-fast) var(--ease-out);
-  box-shadow: 0 4px 16px rgba(232, 80, 10, 0.3);
+  box-shadow: 0 4px 16px rgba(59, 91, 219, 0.3);
 }
 
 .submitButton:hover:not(:disabled) {
   background: var(--color-accent-hover);
   transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(232, 80, 10, 0.35);
+  box-shadow: 0 6px 20px rgba(59, 91, 219, 0.35);
 }
 
 .submitButton:active:not(:disabled) {

@@ -9,14 +9,16 @@ export default function SelectActionPage() {
   const navigate = useNavigate()
   const { data: me } = useMe()
 
-  const rightSlot = tokenStorage.get() ? (
+  const isLoggedIn = !!tokenStorage.get()
+
+  const rightSlot = isLoggedIn ? (
     <button className={styles.myBtn} onClick={() => navigate('/my')} aria-label="마이페이지">
       <span className={styles.myBtnAvatar}>{me?.nickname?.[0] ?? '나'}</span>
     </button>
   ) : undefined
 
   return (
-    <PageLayout showBack onBack={() => navigate('/')} rightSlot={rightSlot}>
+    <PageLayout showBack={!isLoggedIn} onBack={() => navigate('/')} rightSlot={rightSlot}>
       <PageSeo title="방 선택" />
       <div className={styles.page}>
         <div className={styles.heading}>

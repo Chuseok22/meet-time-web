@@ -1,16 +1,9 @@
-import { useEffect, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
-import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
-import { useQueryClient } from '@tanstack/react-query'
-import { FirebaseError } from 'firebase/app'
-import { firebaseAuth } from '@/shared/lib/firebaseClient'
-import { loginWithFirebaseGoogle } from '@/features/auth/api/userApi'
-import { userKeys } from '@/features/auth/hooks/useUser'
-import { tokenStorage } from '@/shared/api/apiClient'
 import PageSeo from '@/shared/components/seo/PageSeo'
 import styles from './HomePage.module.css'
 
 const KAKAO_LOGIN_URL = 'https://api.meet.chuseok22.com/oauth2/authorization/kakao'
+const GOOGLE_LOGIN_URL = 'https://api.meet.chuseok22.com/oauth2/authorization/google'
 
 const benefits = [
   {
@@ -48,46 +41,15 @@ const benefits = [
 
 export default function HomePage() {
   const navigate = useNavigate()
-  const queryClient = useQueryClient()
   const [searchParams] = useSearchParams()
   const oauthError = searchParams.get('error') === 'oauth2_failed'
-  const [googleLoading, setGoogleLoading] = useState(false)
-  const [googleError, setGoogleError] = useState(false)
-
-  // 이미 로그인된 경우 /select로 이동
-  useEffect(() => {
-    if (tokenStorage.get()) {
-      navigate('/select', { replace: true })
-    }
-  }, [navigate])
-
-  if (tokenStorage.get()) return null
 
   const handleKakaoLogin = () => {
     window.location.href = KAKAO_LOGIN_URL
   }
 
-  const handleGoogleLogin = async () => {
-    setGoogleLoading(true)
-    setGoogleError(false)
-    try {
-      const provider = new GoogleAuthProvider()
-      provider.setCustomParameters({ prompt: 'select_account' })
-      const credential = await signInWithPopup(firebaseAuth, provider)
-      const firebaseIdToken = await credential.user.getIdToken(true)
-      const { accessToken } = await loginWithFirebaseGoogle(firebaseIdToken)
-      tokenStorage.set(accessToken)
-      queryClient.invalidateQueries({ queryKey: userKeys.me })
-      navigate('/select', { replace: true })
-    } catch (error) {
-      // 팝업을 사용자가 직접 닫은 경우 에러 표시하지 않음
-      if (error instanceof FirebaseError && error.code === 'auth/popup-closed-by-user') {
-        return
-      }
-      setGoogleError(true)
-    } finally {
-      setGoogleLoading(false)
-    }
+  const handleGoogleLogin = () => {
+    window.location.href = GOOGLE_LOGIN_URL
   }
 
   const handleGuestStart = () => {
@@ -120,7 +82,7 @@ export default function HomePage() {
         </div>
 
         {/* OAuth 에러 배너 */}
-        {(oauthError || googleError) && (
+        {oauthError && (
           <div className={styles.errorBanner}>
             <svg className={styles.errorBannerIcon} viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
               <circle cx="8" cy="8" r="6.5" />
@@ -140,12 +102,9 @@ export default function HomePage() {
           <button
             className={`${styles.authButton} ${styles.googleButton}`}
             onClick={handleGoogleLogin}
-            disabled={googleLoading}
           >
             <GoogleIcon className={styles.buttonIcon} />
-            <span className={styles.buttonText}>
-              {googleLoading ? '로그인 중…' : '구글로 계속하기'}
-            </span>
+            <span className={styles.buttonText}>구글로 계속하기</span>
           </button>
 
           <div className={styles.divider}>

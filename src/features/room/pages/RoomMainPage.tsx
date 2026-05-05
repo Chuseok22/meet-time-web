@@ -1,5 +1,6 @@
 import { useState, Fragment } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import PageLayout from '@/shared/components/ui/PageLayout'
 import PageSeo from '@/shared/components/seo/PageSeo'
 import { useRoom } from '@/features/room/hooks/useRoom'
@@ -11,7 +12,6 @@ import styles from './RoomMainPage.module.css'
 /* ── 상수 ── */
 const START_HOUR = 8
 const SLOTS_PER_DAY = (24 - START_HOUR) * 2
-const WEEKDAY_SHORT = ['일', '월', '화', '수', '목', '금', '토']
 const TOP_N = 5
 
 /* ── 유틸 ── */
@@ -22,11 +22,6 @@ const formatSlotTime = (slot: number) => {
   return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`
 }
 
-const formatDateLabel = (key: string) => {
-  const [yStr, mStr, dStr] = key.split('-')
-  const date = new Date(Number(yStr), Number(mStr) - 1, Number(dStr))
-  return `${Number(mStr)}/${Number(dStr)} (${WEEKDAY_SHORT[date.getDay()]})`
-}
 
 const isHourBoundary = (slot: number) => (slot * 30) % 60 === 0
 
@@ -73,7 +68,18 @@ function getTopSlots(dateAvailability: DateAvailability[], n: number) {
 export default function RoomMainPage() {
   const { roomId } = useParams<{ roomId: string }>()
   const navigate = useNavigate()
+  const { t, i18n } = useTranslation()
+  const locale = i18n.language.startsWith('ko') ? 'ko' : 'en'
   const [copied, setCopied] = useState(false)
+
+  const formatDateLabel = (key: string) => {
+    const [yStr, mStr, dStr] = key.split('-')
+    return new Intl.DateTimeFormat(locale, {
+      month: 'numeric',
+      day: 'numeric',
+      weekday: 'short',
+    }).format(new Date(Number(yStr), Number(mStr) - 1, Number(dStr)))
+  }
 
   const { data: room, isLoading, error } = useRoom(roomId!)
 
@@ -94,7 +100,7 @@ export default function RoomMainPage() {
     return (
       <PageLayout showBack>
         <div style={{ display: 'flex', justifyContent: 'center', padding: 'var(--space-16)', color: 'var(--color-text-muted)', fontSize: 'var(--text-sm)' }}>
-          불러오는 중…
+          {t('common.loading')}
         </div>
       </PageLayout>
     )
@@ -104,7 +110,7 @@ export default function RoomMainPage() {
     return (
       <PageLayout showBack>
         <div style={{ display: 'flex', justifyContent: 'center', padding: 'var(--space-16)', color: 'var(--color-error)', fontSize: 'var(--text-sm)' }}>
-          방 정보를 불러올 수 없어요.
+          {t('roomMain.loadError')}
         </div>
       </PageLayout>
     )
@@ -116,7 +122,7 @@ export default function RoomMainPage() {
 
   return (
     <PageLayout showBack onBack={() => navigate('/select')}>
-      <PageSeo title="미팅 방" noIndex />
+      <PageSeo title={t('roomMain.pageTitle')} noIndex />
       <div className={styles.page}>
         {/* 방 정보 카드 */}
         <div className={styles.roomCard}>
@@ -127,24 +133,24 @@ export default function RoomMainPage() {
                 <rect x="1" y="2.5" width="12" height="10" rx="1.5" />
                 <path d="M1 6h12M4.5 1v3M9.5 1v3" />
               </svg>
-              {room.dates.length}일
+              {t('roomMain.daysCount', { count: room.dates.length })}
             </span>
             <span className={styles.roomMetaItem}>
               <svg className={styles.roomMetaIcon} viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                 <circle cx="7" cy="5" r="2.5" />
                 <path d="M2 13c0-2.76 2.24-5 5-5s5 2.24 5 5" />
               </svg>
-              {room.participantsCount}명 참여 중
+              {t('roomMain.participantsCount', { count: room.participantsCount })}
             </span>
           </div>
 
           <div className={styles.shareRow}>
-            <span className={styles.shareLabel}>코드</span>
+            <span className={styles.shareLabel}>{t('roomMain.codeLabel')}</span>
             <span className={styles.shareCode}>{room.joinCode}</span>
             <button className={`${styles.copyButton} ${copied ? styles.copyButtonCopied : ''}`} onClick={handleCopy}>
               {copied
-                ? <><svg className={styles.copyIcon} viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 6l3 3 5-5" /></svg>복사됨</>
-                : <><svg className={styles.copyIcon} viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="4" y="4" width="7" height="7" rx="1" /><path d="M1 8V2a1 1 0 0 1 1-1h6" /></svg>복사</>
+                ? <><svg className={styles.copyIcon} viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 6l3 3 5-5" /></svg>{t('roomMain.copied')}</>
+                : <><svg className={styles.copyIcon} viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="4" y="4" width="7" height="7" rx="1" /><path d="M1 8V2a1 1 0 0 1 1-1h6" /></svg>{t('roomMain.copyLink')}</>
               }
             </button>
           </div>
@@ -154,7 +160,7 @@ export default function RoomMainPage() {
         {room.participantInfoResponses.length > 0 && (
           <div className={styles.participants}>
             <span className={styles.sectionTitle}>
-              참가자 <span className={styles.sectionBadge}>{room.participantsCount}명</span>
+              {t('roomMain.participants')} <span className={styles.sectionBadge}>{t('roomMain.participantsCount', { count: room.participantsCount })}</span>
             </span>
             <div className={styles.participantList}>
               {room.participantInfoResponses.map(p => (
@@ -170,15 +176,15 @@ export default function RoomMainPage() {
         {/* 히트맵 */}
         <div className={styles.heatmapSection}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <span className={styles.sectionTitle}>시간대별 현황</span>
+            <span className={styles.sectionTitle}>{t('roomMain.heatmapTitle')}</span>
             <div className={styles.legend}>
-              <span className={styles.legendLabel}>적음</span>
+              <span className={styles.legendLabel}>{t('roomMain.legendLow')}</span>
               <div className={styles.legendScale}>
                 {[0, 1, 2, 3, 4].map(l => (
                   <div key={l} className={styles.legendDot} style={{ background: `var(--color-heatmap-${l})` }} />
                 ))}
               </div>
-              <span className={styles.legendLabel}>많음</span>
+              <span className={styles.legendLabel}>{t('roomMain.legendHigh')}</span>
             </div>
           </div>
 
@@ -190,7 +196,9 @@ export default function RoomMainPage() {
                 const date = new Date(Number(yStr), Number(mStr) - 1, Number(dStr))
                 return (
                   <div key={dk} className={styles.heatmapDateHeader}>
-                    <span className={styles.heatmapDateDay}>{WEEKDAY_SHORT[date.getDay()]}</span>
+                    <span className={styles.heatmapDateDay}>
+                      {new Intl.DateTimeFormat(locale, { weekday: 'narrow' }).format(date)}
+                    </span>
                     <span className={styles.heatmapDateNum}>{Number(dStr)}</span>
                   </div>
                 )
@@ -205,7 +213,7 @@ export default function RoomMainPage() {
                     const key = `${dk}__${slotIdx}`
                     const count = voteMap.get(key) ?? 0
                     const level = getLevelFromCount(count, maxVote)
-                    const tooltip = count > 0 ? `${formatDateLabel(dk)} ${formatSlotTime(slotIdx)} · ${count}명` : ''
+                    const tooltip = count > 0 ? `${formatDateLabel(dk)} ${formatSlotTime(slotIdx)} · ${t('roomMain.tooltipCount', { count })}` : ''
                     return (
                       <div
                         key={key}
@@ -224,7 +232,7 @@ export default function RoomMainPage() {
         {/* TOP 5 순위 */}
         {topSlots.length > 0 && (
           <div className={styles.rankingSection}>
-            <span className={styles.sectionTitle}>인기 시간 TOP {TOP_N}</span>
+            <span className={styles.sectionTitle}>{t('roomMain.bestSlots', { n: TOP_N })}</span>
             <div className={styles.rankingList}>
               {topSlots.map((sv, idx) => {
                 const rank = idx + 1
@@ -238,7 +246,7 @@ export default function RoomMainPage() {
                     </div>
                     <div className={styles.rankVotes}>
                       <span className={styles.rankVoteCount}>{sv.count}</span>
-                      <span className={styles.rankVoteLabel}>명 가능</span>
+                      <span className={styles.rankVoteLabel}>{t('roomMain.rankVoteLabel')}</span>
                     </div>
                   </div>
                 )
@@ -256,7 +264,7 @@ export default function RoomMainPage() {
             <circle cx="9" cy="9" r="7.5" />
             <path d="M9 5v4l2.5 2.5" />
           </svg>
-          내 가능 시간 투표하기
+          {t('roomMain.vote')}
         </button>
       </div>
     </PageLayout>

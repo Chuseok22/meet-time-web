@@ -4,6 +4,7 @@
     "loading": "불러오는 중…",
     "back": "뒤로가기",
     "myPage": "마이페이지",
+    "clear": "지우기",
     "error": {
       "default": "오류가 발생했어요. 잠시 후 다시 시도해 주세요.",
       "INVALID_REQUEST": "입력 값을 다시 확인해 주세요.",
@@ -62,6 +63,7 @@
     "selectedDates": "선택된 날짜",
     "clearAll": "전체 해제",
     "emptyDateHint": "달력에서 날짜를 선택해 주세요",
+    "removeDate": "{{date}} 제거",
     "submit": "방 만들기",
     "submitting": "생성 중…",
     "submitError": "방 생성에 실패했어요. 다시 시도해 주세요."
@@ -75,16 +77,28 @@
     "invalidCode": "참여 코드를 올바르게 입력해 주세요",
     "roomNotFound": "존재하지 않는 방 코드예요. 다시 확인해 주세요.",
     "roomFindError": "방을 찾을 수 없어요.",
+    "hintTitle": "참여 코드는 어디서 받나요?",
+    "hintDesc": "방을 만든 사람에게 공유 코드나 링크를 받아보세요. 방 메인 화면에서 코드를 확인할 수 있어요.",
     "submit": "방 입장하기",
     "submitting": "확인 중…"
   },
   "roomMain": {
+    "pageTitle": "미팅 방",
+    "loadError": "방 정보를 불러올 수 없어요.",
     "copyLink": "링크 복사",
     "copied": "복사됨!",
+    "codeLabel": "코드",
     "noParticipants": "참여자 없음",
-    "bestSlots": "베스트 시간대",
-    "vote": "투표하기",
-    "participants": "참여자",
+    "participants": "참가자",
+    "participantsCount": "{{count}}명 참여 중",
+    "daysCount": "{{count}}일",
+    "heatmapTitle": "시간대별 현황",
+    "legendLow": "적음",
+    "legendHigh": "많음",
+    "tooltipCount": "{{count}}명",
+    "bestSlots": "인기 시간 TOP {{n}}",
+    "rankVoteLabel": "명 가능",
+    "vote": "내 가능 시간 투표하기",
     "totalParticipants": "전체 {{count}}명"
   },
   "vote": {

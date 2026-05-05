@@ -4,6 +4,7 @@
     "loading": "Loading…",
     "back": "Back",
     "myPage": "My Page",
+    "clear": "Clear",
     "error": {
       "default": "An error occurred. Please try again later.",
       "INVALID_REQUEST": "Please check your input and try again.",
@@ -62,6 +63,7 @@
     "selectedDates": "Selected Dates",
     "clearAll": "Clear All",
     "emptyDateHint": "Please select dates from the calendar",
+    "removeDate": "Remove {{date}}",
     "submit": "Create Room",
     "submitting": "Creating…",
     "submitError": "Failed to create room. Please try again."
@@ -75,16 +77,28 @@
     "invalidCode": "Please enter a valid join code",
     "roomNotFound": "Room not found. Please double-check the code.",
     "roomFindError": "Could not find the room.",
+    "hintTitle": "Where do I get a join code?",
+    "hintDesc": "Ask the room host for a share code or link. You can find the code on the room main screen.",
     "submit": "Enter Room",
     "submitting": "Checking…"
   },
   "roomMain": {
+    "pageTitle": "Meeting Room",
+    "loadError": "Could not load room information.",
     "copyLink": "Copy Link",
     "copied": "Copied!",
+    "codeLabel": "Code",
     "noParticipants": "No participants yet",
-    "bestSlots": "Best Time Slots",
-    "vote": "Vote",
     "participants": "Participants",
+    "participantsCount": "{{count}} joined",
+    "daysCount": "{{count}} day(s)",
+    "heatmapTitle": "Availability by Time Slot",
+    "legendLow": "Low",
+    "legendHigh": "High",
+    "tooltipCount": "{{count}} people",
+    "bestSlots": "Top {{n}} Popular Slots",
+    "rankVoteLabel": "available",
+    "vote": "Vote on My Available Times",
     "totalParticipants": "{{count}} total"
   },
   "vote": {

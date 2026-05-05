@@ -1,12 +1,13 @@
 import { useRouteError, isRouteErrorResponse, useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import styles from './ErrorPage.module.css'
 
 export default function ErrorPage() {
   const error = useRouteError()
   const navigate = useNavigate()
+  const { t } = useTranslation()
 
-  const is404 =
-    isRouteErrorResponse(error) && error.status === 404
+  const is404 = isRouteErrorResponse(error) && error.status === 404
 
   return (
     <div className={styles.page}>
@@ -25,22 +26,20 @@ export default function ErrorPage() {
         </div>
 
         <h1 className={styles.title}>
-          {is404 ? '페이지를 찾을 수 없어요' : '문제가 발생했어요'}
+          {is404 ? t('error.notFound') : t('error.serverError')}
         </h1>
 
         <p className={styles.desc}>
-          {is404
-            ? '요청하신 페이지가 존재하지 않거나 이동됐어요.'
-            : '일시적인 오류가 발생했어요. 잠시 후 다시 시도해 주세요.'}
+          {is404 ? t('error.notFoundDesc') : t('error.serverErrorDesc')}
         </p>
 
         <div className={styles.actions}>
           <button className={styles.homeBtn} onClick={() => navigate('/', { replace: true })}>
-            홈으로 돌아가기
+            {t('error.goHome')}
           </button>
           {!is404 && (
             <button className={styles.backBtn} onClick={() => navigate(-1)}>
-              이전 페이지로
+              {t('error.goBack')}
             </button>
           )}
         </div>

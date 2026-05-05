@@ -1,30 +1,38 @@
 import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import PageLayout from '@/shared/components/ui/PageLayout'
 import { useMe } from '@/features/auth/hooks/useUser'
 import { tokenStorage } from '@/shared/api/apiClient'
 import PageSeo from '@/shared/components/seo/PageSeo'
 import AdBanner from '@/shared/components/ui/AdBanner'
+import LanguageSwitcher from '@/shared/components/ui/LanguageSwitcher'
 import styles from './SelectActionPage.module.css'
 
 export default function SelectActionPage() {
   const navigate = useNavigate()
+  const { t } = useTranslation()
   const { data: me } = useMe()
 
   const isLoggedIn = !!tokenStorage.get()
 
-  const rightSlot = isLoggedIn ? (
-    <button className={styles.myBtn} onClick={() => navigate('/my')} aria-label="마이페이지">
-      <span className={styles.myBtnAvatar}>{me?.nickname?.[0] ?? '나'}</span>
-    </button>
-  ) : undefined
+  const rightSlot = (
+    <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+      <LanguageSwitcher />
+      {isLoggedIn && (
+        <button className={styles.myBtn} onClick={() => navigate('/my')} aria-label={t('common.myPage')}>
+          <span className={styles.myBtnAvatar}>{me?.nickname?.[0] ?? '나'}</span>
+        </button>
+      )}
+    </div>
+  )
 
   return (
     <PageLayout showBack={!isLoggedIn} onBack={() => navigate('/')} rightSlot={rightSlot}>
-      <PageSeo title="방 선택" />
+      <PageSeo title={t('select.pageTitle')} />
       <div className={styles.page}>
         <div className={styles.heading}>
-          <h1 className={styles.title}>방을 만들어보세요</h1>
-          <p className={styles.subtitle}>새 미팅을 만들거나, 초대받은 방에 참가하세요</p>
+          <h1 className={styles.title}>{t('select.heading')}</h1>
+          <p className={styles.subtitle}>{t('select.subtitle')}</p>
         </div>
 
         <div className={styles.cards}>
@@ -37,8 +45,8 @@ export default function SelectActionPage() {
               </svg>
             </div>
             <div className={styles.cardBody}>
-              <span className={styles.cardTitle}>새 방 만들기</span>
-              <span className={styles.cardDesc}>미팅 이름과 날짜를 설정해 방을 만들어요</span>
+              <span className={styles.cardTitle}>{t('select.createRoom')}</span>
+              <span className={styles.cardDesc}>{t('select.createRoomDesc')}</span>
             </div>
             <svg className={styles.cardArrow} viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
               <path d="M8 4l6 6-6 6" />
@@ -47,7 +55,7 @@ export default function SelectActionPage() {
 
           <div className={styles.divider}>
             <span className={styles.dividerLine} />
-            <span className={styles.dividerText}>또는</span>
+            <span className={styles.dividerText}>{t('common.or')}</span>
             <span className={styles.dividerLine} />
           </div>
 
@@ -61,8 +69,8 @@ export default function SelectActionPage() {
               </svg>
             </div>
             <div className={styles.cardBody}>
-              <span className={styles.cardTitle}>방 참가하기</span>
-              <span className={styles.cardDesc}>참여 코드를 입력해 기존 방에 들어가요</span>
+              <span className={styles.cardTitle}>{t('select.joinRoom')}</span>
+              <span className={styles.cardDesc}>{t('select.joinRoomDesc')}</span>
             </div>
             <svg className={styles.cardArrow} viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
               <path d="M8 4l6 6-6 6" />

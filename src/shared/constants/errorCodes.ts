@@ -16,19 +16,9 @@ export const ERROR_CODES = {
 
 export type ErrorCode = (typeof ERROR_CODES)[keyof typeof ERROR_CODES]
 
-/* 사용자에게 보여줄 메시지 매핑 */
-export const ERROR_MESSAGES: Record<string, string> = {
-  [ERROR_CODES.INVALID_REQUEST]: '입력 값을 다시 확인해 주세요.',
-  [ERROR_CODES.BASE_58_JOIN_CODE_PATTERN_MISMATCH]: '올바른 참여 코드 형식이 아니에요.',
-  [ERROR_CODES.TOKEN_EXPIRED]: '로그인이 만료되었어요. 다시 로그인해 주세요.',
-  [ERROR_CODES.INVALID_TOKEN]: '인증 정보가 유효하지 않아요. 다시 로그인해 주세요.',
-  [ERROR_CODES.INVALID_PASSWORD]: '비밀번호가 일치하지 않아요.',
-  [ERROR_CODES.ACCESS_DENIED]: '접근 권한이 없어요.',
-  [ERROR_CODES.ROOM_DELETE_FORBIDDEN]: '방을 삭제할 권한이 없어요.',
-  [ERROR_CODES.PARTICIPANT_DELETE_FORBIDDEN]: '탈퇴 권한이 없어요.',
-  [ERROR_CODES.MEETING_ROOM_NOT_FOUND]: '존재하지 않는 방이에요.',
-  [ERROR_CODES.PARTICIPANT_NOT_FOUND]: '참가자 정보를 찾을 수 없어요.',
-  [ERROR_CODES.USER_NOT_FOUND]: '사용자 정보를 찾을 수 없어요.',
-  [ERROR_CODES.DUPLICATE_USERNAME]: '이미 사용 중인 이름이에요. 다른 이름을 입력해 주세요.',
-  [ERROR_CODES.INTERNAL_SERVER_ERROR]: '서버 오류가 발생했어요. 잠시 후 다시 시도해 주세요.',
+/* 에러 코드 → i18n 번역 키 반환 */
+export function getErrorKey(code: string): string {
+  return `common.error.${code}`
 }
+
+export const ERROR_FALLBACK_KEY = 'common.error.default'

@@ -124,6 +124,11 @@
     "errorDuplicateUsername": "This name is already in use by someone else.",
     "errorDefault": "Failed to join. Please try again.",
     "timeslotPageTitle": "Select Time",
+    "timeslotGuide": "Drag to select your available time slots",
+    "timeslotSelectionCount": "{{count}}",
+    "timeslotSelectionLabel": "selected",
+    "timeslotClearAll": "Clear All",
+    "timeslotNoSelection": "Select time slots",
     "timeslotSubmit": "Submit Vote",
     "timeslotSubmitting": "Submitting…"
   },
@@ -135,6 +140,11 @@
     "logout": "Log Out",
     "withdraw": "Delete Account",
     "withdrawError": "An error occurred while deleting your account. Please try again.",
+    "withdrawConfirmTitle": "Delete your account?",
+    "withdrawConfirmDesc": "All your rooms and votes will be permanently deleted. This cannot be undone.",
+    "withdrawCancel": "Cancel",
+    "withdrawConfirm": "Delete Account",
+    "withdrawPending": "Deleting…",
     "myRoomsList": "My Rooms"
   },
   "myRooms": {
@@ -142,7 +152,11 @@
     "createdTab": "Rooms I Created",
     "joinedTab": "Rooms I Joined",
     "emptyCreated": "No rooms created yet",
+    "emptyCreatedDesc": "Create a new room and invite participants.",
+    "emptyCreatedAction": "Create Room",
     "emptyJoined": "No rooms joined yet",
+    "emptyJoinedDesc": "Enter a join code to access an existing room.",
+    "emptyJoinedAction": "Join a Room",
     "ownerBadge": "Host",
     "codeLabel": "Code"
   },

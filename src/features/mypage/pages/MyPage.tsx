@@ -50,7 +50,7 @@ export default function MyPage() {
             </svg>
             <span className={styles.loginPromptTitle}>{t('mypage.loginRequired')}</span>
             <span className={styles.loginPromptDesc}>
-              {t('mypage.loginDesc')}
+              {t('mypage.loginRequiredDesc')}
             </span>
             <button className={styles.loginBtn} onClick={() => navigate('/')}>
               {t('mypage.goToLogin')}

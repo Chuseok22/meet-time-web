@@ -6,6 +6,7 @@ export default function LanguageSwitcher() {
 
   return (
     <button
+      type="button"
       className={styles.switcher}
       onClick={toggleLocale}
       aria-label={locale === 'ko' ? 'Switch to English' : '한국어로 변경'}

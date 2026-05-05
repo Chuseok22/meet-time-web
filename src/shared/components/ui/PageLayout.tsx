@@ -33,7 +33,7 @@ export default function PageLayout({
       {(showBack || title || rightSlot) && (
         <header className={styles.header}>
           {showBack && (
-            <button className={styles.backButton} onClick={handleBack} aria-label={t('common.back')}>
+            <button type="button" className={styles.backButton} onClick={handleBack} aria-label={t('common.back')}>
               <svg className={styles.backIcon} viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M12 4l-6 6 6 6" />
               </svg>

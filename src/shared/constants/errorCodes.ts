@@ -16,9 +16,10 @@ export const ERROR_CODES = {
 
 export type ErrorCode = (typeof ERROR_CODES)[keyof typeof ERROR_CODES]
 
-/* 에러 코드 → i18n 번역 키 반환 */
+/* 에러 코드 → i18n 번역 키 반환. 미등록 코드는 fallback 키로 매핑 */
 export function getErrorKey(code: string): string {
-  return `common.error.${code}`
+  const isKnownCode = (Object.values(ERROR_CODES) as string[]).includes(code)
+  return isKnownCode ? `common.error.${code}` : ERROR_FALLBACK_KEY
 }
 
 export const ERROR_FALLBACK_KEY = 'common.error.default'

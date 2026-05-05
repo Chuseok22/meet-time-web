@@ -16,7 +16,7 @@ export default function SelectActionPage() {
   const isLoggedIn = !!tokenStorage.get()
 
   const rightSlot = (
-    <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+    <div className={styles.rightSlot}>
       <LanguageSwitcher />
       {isLoggedIn && (
         <button className={styles.myBtn} onClick={() => navigate('/my')} aria-label={t('common.myPage')}>

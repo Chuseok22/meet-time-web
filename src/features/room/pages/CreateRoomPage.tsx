@@ -1,9 +1,10 @@
 import { useState, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import PageLayout from '@/shared/components/ui/PageLayout'
 import { useCreateRoom } from '@/features/room/hooks/useRoom'
 import { ApiException } from '@/shared/types/api.types'
-import { ERROR_MESSAGES } from '@/shared/constants/errorCodes'
+import { getErrorKey } from '@/shared/constants/errorCodes'
 import PageSeo from '@/shared/components/seo/PageSeo'
 import styles from './CreateRoomPage.module.css'
 
@@ -13,15 +14,14 @@ const ROOM_NAME_MAX = 30
 const toDateKey = (y: number, m: number, d: number) =>
   `${y}-${String(m + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`
 
-const WEEKDAYS = ['일', '월', '화', '수', '목', '금', '토']
-const MONTHS_KO = ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월']
-
 interface CalendarProps {
   selected: Set<string>
   onToggle: (key: string) => void
+  locale: string
 }
 
-function Calendar({ selected, onToggle }: CalendarProps) {
+function Calendar({ selected, onToggle, locale }: CalendarProps) {
+  const { t } = useTranslation()
   const today = new Date()
   const todayKey = toDateKey(today.getFullYear(), today.getMonth(), today.getDate())
 
@@ -58,13 +58,15 @@ function Calendar({ selected, onToggle }: CalendarProps) {
   return (
     <div className={styles.calendar}>
       <div className={styles.calendarHeader}>
-        <button className={styles.calendarNavBtn} onClick={prevMonth} disabled={!canGoPrev} aria-label="이전 달">
+        <button className={styles.calendarNavBtn} onClick={prevMonth} disabled={!canGoPrev} aria-label={t('createRoom.prevMonth')}>
           <svg className={styles.calendarNavIcon} viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
             <path d="M10 4L6 8l4 4" />
           </svg>
         </button>
-        <span className={styles.calendarMonth}>{viewYear}년 {MONTHS_KO[viewMonth]}</span>
-        <button className={styles.calendarNavBtn} onClick={nextMonth} aria-label="다음 달">
+        <span className={styles.calendarMonth}>
+          {new Intl.DateTimeFormat(locale, { year: 'numeric', month: 'long' }).format(new Date(viewYear, viewMonth))}
+        </span>
+        <button className={styles.calendarNavBtn} onClick={nextMonth} aria-label={t('createRoom.nextMonth')}>
           <svg className={styles.calendarNavIcon} viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
             <path d="M6 4l4 4-4 4" />
           </svg>
@@ -72,9 +74,11 @@ function Calendar({ selected, onToggle }: CalendarProps) {
       </div>
 
       <div className={styles.calendarWeekdays}>
-        {WEEKDAYS.map((w, i) => (
+        {Array.from({ length: 7 }, (_, i) =>
+          new Intl.DateTimeFormat(locale, { weekday: 'narrow' }).format(new Date(2024, 0, 7 + i))
+        ).map((w, i) => (
           <span
-            key={w}
+            key={i}
             className={`${styles.calendarWeekday} ${i === 0 ? styles.calendarWeekdaySun : ''} ${i === 6 ? styles.calendarWeekdaySat : ''}`}
           >
             {w}
@@ -101,7 +105,7 @@ function Calendar({ selected, onToggle }: CalendarProps) {
               onClick={() => !past && onToggle(cell.key)}
               disabled={past}
               aria-pressed={isSelected}
-              aria-label={`${viewYear}년 ${viewMonth + 1}월 ${cell.day}일`}
+              aria-label={new Intl.DateTimeFormat(locale, { year: 'numeric', month: 'long', day: 'numeric' }).format(new Date(viewYear, viewMonth, cell.day))}
             >
               {cell.day}
             </button>
@@ -116,6 +120,8 @@ function Calendar({ selected, onToggle }: CalendarProps) {
 export default function CreateRoomPage() {
   const navigate = useNavigate()
   const createRoom = useCreateRoom()
+  const { t, i18n } = useTranslation()
+  const locale = i18n.language.startsWith('ko') ? 'ko' : 'en'
   const [roomName, setRoomName] = useState('')
   const [selectedDates, setSelectedDates] = useState<Set<string>>(new Set())
   const [errorMsg, setErrorMsg] = useState('')
@@ -142,8 +148,8 @@ export default function CreateRoomPage() {
   const sortedDates = Array.from(selectedDates).sort()
 
   const formatDateTag = (key: string) => {
-    const [, m, d] = key.split('-')
-    return `${parseInt(m)}/${parseInt(d)}`
+    const [y, m, d] = key.split('-').map(Number)
+    return new Intl.DateTimeFormat(locale, { month: 'numeric', day: 'numeric' }).format(new Date(y, m - 1, d))
   }
 
   const canSubmit = roomName.trim().length > 0 && selectedDates.size > 0
@@ -159,25 +165,25 @@ export default function CreateRoomPage() {
       navigate(`/room/${room.meetingRoomId}`, { replace: true })
     } catch (err) {
       if (err instanceof ApiException) {
-        setErrorMsg(ERROR_MESSAGES[err.errorCode] ?? err.errorMessage)
+        setErrorMsg(t(getErrorKey(err.errorCode)) || t('createRoom.submitError'))
       } else {
-        setErrorMsg('방 생성에 실패했어요. 다시 시도해 주세요.')
+        setErrorMsg(t('createRoom.submitError'))
       }
     }
   }
 
   return (
-    <PageLayout title="새 방 만들기">
-      <PageSeo title="새 방 만들기" />
+    <PageLayout title={t('createRoom.pageTitle')}>
+      <PageSeo title={t('createRoom.pageTitle')} />
       <div className={styles.page}>
         {/* 방 이름 */}
         <div className={styles.section}>
-          <label className={styles.sectionLabel} htmlFor="room-name">미팅 이름</label>
+          <label className={styles.sectionLabel} htmlFor="room-name">{t('createRoom.roomNameLabel')}</label>
           <input
             id="room-name"
             className={styles.input}
             type="text"
-            placeholder="예: 팀 회의, 스터디 모임"
+            placeholder={t('createRoom.roomNamePlaceholder')}
             value={roomName}
             maxLength={ROOM_NAME_MAX}
             onChange={e => setRoomName(e.target.value)}
@@ -188,31 +194,31 @@ export default function CreateRoomPage() {
 
         {/* 날짜 선택 */}
         <div className={styles.section}>
-          <span className={styles.sectionLabel}>날짜 선택</span>
-          <span className={styles.sectionSub}>여러 날짜를 자유롭게 선택할 수 있어요</span>
-          <Calendar selected={selectedDates} onToggle={toggleDate} />
+          <span className={styles.sectionLabel}>{t('createRoom.dateSectionLabel')}</span>
+          <span className={styles.sectionSub}>{t('createRoom.dateSectionSub')}</span>
+          <Calendar selected={selectedDates} onToggle={toggleDate} locale={locale} />
         </div>
 
         {/* 선택된 날짜 목록 */}
         <div className={styles.selectedDates}>
           <div className={styles.selectedDatesHeader}>
             <span className={styles.selectedCount}>
-              선택된 날짜
+              {t('createRoom.selectedDates')}
               {selectedDates.size > 0 && (
                 <span className={styles.selectedCountBadge}>{selectedDates.size}</span>
               )}
             </span>
             {selectedDates.size > 0 && (
-              <button className={styles.clearAll} onClick={clearAll}>전체 해제</button>
+              <button className={styles.clearAll} onClick={clearAll}>{t('createRoom.clearAll')}</button>
             )}
           </div>
           <div className={styles.selectedDateTags}>
             {sortedDates.length === 0
-              ? <span className={styles.emptyDateHint}>달력에서 날짜를 선택해 주세요</span>
+              ? <span className={styles.emptyDateHint}>{t('createRoom.emptyDateHint')}</span>
               : sortedDates.map(key => (
                 <span key={key} className={styles.dateTag}>
                   {formatDateTag(key)}
-                  <button className={styles.dateTagRemove} onClick={() => removeDate(key)} aria-label={`${key} 제거`}>
+                  <button className={styles.dateTagRemove} onClick={() => removeDate(key)} aria-label={t('createRoom.removeDate', { date: formatDateTag(key) })}>
                     <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
                       <path d="M3 3l8 8M11 3l-8 8" />
                     </svg>
@@ -234,7 +240,7 @@ export default function CreateRoomPage() {
             onClick={handleSubmit}
             disabled={!canSubmit || createRoom.isPending}
           >
-            {createRoom.isPending ? '생성 중…' : '방 만들기'}
+            {createRoom.isPending ? t('createRoom.submitting') : t('createRoom.submit')}
           </button>
         </div>
       </div>

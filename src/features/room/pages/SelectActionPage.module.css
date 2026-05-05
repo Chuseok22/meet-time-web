@@ -186,3 +186,9 @@
     transform: translateY(0);
   }
 }
+
+.rightSlot {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}

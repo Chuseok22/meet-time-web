@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import PageLayout from '@/shared/components/ui/PageLayout'
 import { useRoomByJoinCode } from '@/features/room/hooks/useRoom'
 import { ApiException } from '@/shared/types/api.types'
-import { ERROR_CODES, ERROR_MESSAGES } from '@/shared/constants/errorCodes'
+import { ERROR_CODES, getErrorKey } from '@/shared/constants/errorCodes'
 import PageSeo from '@/shared/components/seo/PageSeo'
 import styles from './JoinRoomPage.module.css'
 
@@ -12,6 +13,7 @@ const JOIN_CODE_MAX = 10
 
 export default function JoinRoomPage() {
   const navigate = useNavigate()
+  const { t } = useTranslation()
   const [code, setCode] = useState('')
   const [submitted, setSubmitted] = useState(false)
   const [manualError, setManualError] = useState('')
@@ -31,7 +33,7 @@ export default function JoinRoomPage() {
 
   const handleSubmit = () => {
     if (code.trim().length < 5) {
-      setManualError('참여 코드를 올바르게 입력해 주세요')
+      setManualError(t('joinRoom.invalidCode'))
       return
     }
     setManualError('')
@@ -52,24 +54,24 @@ export default function JoinRoomPage() {
     if (!error) return ''
     if (error instanceof ApiException) {
       if (error.errorCode === ERROR_CODES.MEETING_ROOM_NOT_FOUND) {
-        return '존재하지 않는 방 코드예요. 다시 확인해 주세요.'
+        return t('joinRoom.roomNotFound')
       }
-      return ERROR_MESSAGES[error.errorCode] ?? error.errorMessage
+      return t(getErrorKey(error.errorCode))
     }
-    return '방을 찾을 수 없어요.'
+    return t('joinRoom.roomFindError')
   })()
 
   return (
-    <PageLayout title="방 참가하기">
-      <PageSeo title="방 참가하기" />
+    <PageLayout title={t('joinRoom.pageTitle')}>
+      <PageSeo title={t('joinRoom.pageTitle')} />
       <div className={styles.page}>
         <div className={styles.heading}>
-          <h1 className={styles.title}>참여 코드를 입력해 주세요</h1>
-          <p className={styles.subtitle}>방장에게 받은 참여 코드를 입력하면 바로 들어갈 수 있어요</p>
+          <h1 className={styles.title}>{t('joinRoom.heading')}</h1>
+          <p className={styles.subtitle}>{t('joinRoom.subtitle')}</p>
         </div>
 
         <div className={styles.codeSection}>
-          <label className={styles.codeLabel} htmlFor="join-code">참여 코드</label>
+          <label className={styles.codeLabel} htmlFor="join-code">{t('joinRoom.codeLabel')}</label>
           <div className={styles.codeInputWrapper}>
             <input
               id="join-code"
@@ -89,7 +91,7 @@ export default function JoinRoomPage() {
               <button
                 className={styles.clearButton}
                 onClick={() => { setCode(''); setSubmitted(false); setManualError('') }}
-                aria-label="지우기"
+                aria-label={t('common.clear')}
               >
                 <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
                   <path d="M3 3l8 8M11 3l-8 8" />
@@ -116,9 +118,9 @@ export default function JoinRoomPage() {
             </svg>
           </div>
           <div className={styles.hintBody}>
-            <span className={styles.hintTitle}>참여 코드는 어디서 받나요?</span>
+            <span className={styles.hintTitle}>{t('joinRoom.hintTitle')}</span>
             <span className={styles.hintDesc}>
-              방을 만든 사람에게 공유 코드나 링크를 받아보세요. 방 메인 화면에서 코드를 확인할 수 있어요.
+              {t('joinRoom.hintDesc')}
             </span>
           </div>
         </div>
@@ -129,7 +131,7 @@ export default function JoinRoomPage() {
             onClick={handleSubmit}
             disabled={code.length < 5 || isLoading}
           >
-            {isLoading ? '찾는 중…' : '방 참가하기'}
+            {isLoading ? t('joinRoom.submitting') : t('joinRoom.submit')}
           </button>
         </div>
       </div>

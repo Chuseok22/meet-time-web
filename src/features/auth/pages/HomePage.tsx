@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth'
 import PageSeo from '@/shared/components/seo/PageSeo'
@@ -6,45 +7,47 @@ import { firebaseAuth } from '@/shared/lib/firebaseClient'
 import { loginWithFirebaseGoogle } from '@/features/auth/api/userApi'
 import { tokenStorage } from '@/shared/api/apiClient'
 import AdBanner from '@/shared/components/ui/AdBanner'
+import LanguageSwitcher from '@/shared/components/ui/LanguageSwitcher'
 import styles from './HomePage.module.css'
 
 const KAKAO_LOGIN_URL = 'https://api.meet.chuseok22.com/oauth2/authorization/kakao'
 
-const benefits = [
-  {
-    icon: (
-      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="1" y="3" width="14" height="11" rx="2" />
-        <path d="M1 7h14" />
-        <path d="M5 1v4M11 1v4" />
-      </svg>
-    ),
-    main: '내 방 목록 한눈에 보기',
-    sub: '만든 방과 참여한 방을 모아서 관리',
-  },
-  {
-    icon: (
-      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M13 6l-5 5-3-3" />
-        <circle cx="8" cy="8" r="7" />
-      </svg>
-    ),
-    main: '방 삭제 및 관리 권한',
-    sub: '내가 만든 방은 직접 삭제할 수 있어요',
-  },
-  {
-    icon: (
-      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="8" cy="6" r="3" />
-        <path d="M2 14c0-3.314 2.686-6 6-6s6 2.686 6 6" />
-      </svg>
-    ),
-    main: '내 참가 기록 관리',
-    sub: '참여 취소 및 투표 수정을 쉽게',
-  },
-]
-
 export default function HomePage() {
+  const { t } = useTranslation()
+
+  const benefits = [
+    {
+      icon: (
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="1" y="3" width="14" height="11" rx="2" />
+          <path d="M1 7h14" />
+          <path d="M5 1v4M11 1v4" />
+        </svg>
+      ),
+      main: t('home.benefit1Main'),
+      sub: t('home.benefit1Sub'),
+    },
+    {
+      icon: (
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M13 6l-5 5-3-3" />
+          <circle cx="8" cy="8" r="7" />
+        </svg>
+      ),
+      main: t('home.benefit2Main'),
+      sub: t('home.benefit2Sub'),
+    },
+    {
+      icon: (
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="8" cy="6" r="3" />
+          <path d="M2 14c0-3.314 2.686-6 6-6s6 2.686 6 6" />
+        </svg>
+      ),
+      main: t('home.benefit3Main'),
+      sub: t('home.benefit3Sub'),
+    },
+  ]
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
   const [googleError, setGoogleError] = useState(false)
@@ -79,7 +82,10 @@ export default function HomePage() {
 
   return (
     <div className={styles.page}>
-      <PageSeo />
+      <PageSeo isHome />
+      <div className={styles.langSwitcherWrapper}>
+        <LanguageSwitcher />
+      </div>
       <div className={styles.content}>
         {/* 로고 */}
         <div className={styles.logoSection}>
@@ -92,7 +98,7 @@ export default function HomePage() {
 
           <div>
             <h1 className={styles.logoText}>
-              meet<span className={styles.logoDot}>·</span>time
+              Meet Time
             </h1>
           </div>
 
@@ -109,7 +115,7 @@ export default function HomePage() {
               <circle cx="8" cy="8" r="6.5" />
               <path d="M8 5v3M8 10.5v.5" />
             </svg>
-            <span>로그인 중 문제가 생겼어요. 다시 시도해 주세요.</span>
+            <span>{t('home.oauthError')}</span>
           </div>
         )}
 
@@ -117,7 +123,7 @@ export default function HomePage() {
         <div className={styles.authSection}>
           <button className={`${styles.authButton} ${styles.kakaoButton}`} onClick={handleKakaoLogin}>
             <KakaoIcon className={styles.buttonIcon} />
-            <span className={styles.buttonText}>카카오로 계속하기</span>
+            <span className={styles.buttonText}>{t('home.kakaoLogin')}</span>
           </button>
 
           <button
@@ -126,23 +132,23 @@ export default function HomePage() {
             disabled={isGoogleLoading}
           >
             <GoogleIcon className={styles.buttonIcon} />
-            <span className={styles.buttonText}>{isGoogleLoading ? '로그인 중…' : '구글로 계속하기'}</span>
+            <span className={styles.buttonText}>{isGoogleLoading ? t('home.googleLoading') : t('home.googleLogin')}</span>
           </button>
 
           <div className={styles.divider}>
             <span className={styles.dividerLine} />
-            <span className={styles.dividerText}>또는</span>
+            <span className={styles.dividerText}>{t('common.or')}</span>
             <span className={styles.dividerLine} />
           </div>
 
           <button className={`${styles.authButton} ${styles.guestButton}`} onClick={handleGuestStart}>
-            <span className={styles.buttonText}>게스트로 시작하기</span>
+            <span className={styles.buttonText}>{t('home.guestStart')}</span>
           </button>
         </div>
 
         {/* 로그인 혜택 */}
         <div className={styles.benefitsSection}>
-          <p className={styles.benefitsTitle}>로그인하면 이런 점이 좋아요</p>
+          <p className={styles.benefitsTitle}>{t('home.benefitsTitle')}</p>
           <ul className={styles.benefitsList}>
             {benefits.map((benefit) => (
               <li key={benefit.main} className={styles.benefitItem}>
@@ -160,7 +166,7 @@ export default function HomePage() {
       </div>
 
       <p className={styles.footer}>
-        로그인 없이도 방을 만들고 참여할 수 있어요
+        {t('home.footer')}
       </p>
 
       <AdBanner adSlot="7881670694" />

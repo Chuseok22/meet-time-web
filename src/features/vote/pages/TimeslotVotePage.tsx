@@ -1,18 +1,18 @@
 import { useState, useCallback, useRef, useEffect, useMemo } from 'react'
 import { useNavigate, useParams, useLocation } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import PageLayout from '@/shared/components/ui/PageLayout'
 import PageSeo from '@/shared/components/seo/PageSeo'
 import { useSubmitTime } from '@/features/vote/hooks/useParticipant'
 import { selectedSlotsToRequest, responseToSelectedSlots } from '@/shared/utils/timeSlot'
 import { ApiException } from '@/shared/types/api.types'
-import { ERROR_MESSAGES } from '@/shared/constants/errorCodes'
+import { getErrorKey, ERROR_FALLBACK_KEY } from '@/shared/constants/errorCodes'
 import type { DateAvailability } from '@/features/room/types/room.types'
 import styles from './TimeslotVotePage.module.css'
 
 /* ── 타임슬롯 상수 ── */
 const START_HOUR = 8
 const SLOTS_PER_DAY = (24 - START_HOUR) * 2
-const WEEKDAY_SHORT = ['일', '월', '화', '수', '목', '금', '토']
 
 const formatSlotLabel = (slotIndex: number): string => {
   const totalMinutes = START_HOUR * 60 + slotIndex * 30
@@ -29,14 +29,7 @@ const parseDateKey = (key: string) => {
   return new Date(y, m - 1, d)
 }
 
-const formatDateHeader = (key: string) => {
-  const date = parseDateKey(key)
-  return {
-    day: date.getDate(),
-    weekday: WEEKDAY_SHORT[date.getDay()],
-    isToday: new Date().toDateString() === date.toDateString(),
-  }
-}
+/* formatDateHeader는 locale에 의존하므로 컴포넌트 내부에서 정의 */
 
 const slotKey = (dateKey: string, slot: number) => `${dateKey}__${slot}`
 
@@ -53,6 +46,17 @@ export default function TimeslotVotePage() {
   const navigate = useNavigate()
   const location = useLocation()
   const state = location.state as VoteState | null
+  const { t, i18n } = useTranslation()
+  const locale = i18n.language.startsWith('ko') ? 'ko' : 'en'
+
+  const formatDateHeader = (key: string) => {
+    const date = parseDateKey(key)
+    return {
+      day: date.getDate(),
+      weekday: new Intl.DateTimeFormat(locale, { weekday: 'short' }).format(date),
+      isToday: new Date().toDateString() === date.toDateString(),
+    }
+  }
 
   const submitTime = useSubmitTime(roomId!)
 
@@ -147,9 +151,9 @@ export default function TimeslotVotePage() {
       navigate(`/room/${roomId}`, { replace: true })
     } catch (err) {
       if (err instanceof ApiException) {
-        setErrorMsg(ERROR_MESSAGES[err.errorCode] ?? err.errorMessage)
+        setErrorMsg(t(getErrorKey(err.errorCode)) || t(ERROR_FALLBACK_KEY))
       } else {
-        setErrorMsg('투표 저장에 실패했어요. 다시 시도해 주세요.')
+        setErrorMsg(t(ERROR_FALLBACK_KEY))
       }
     }
   }
@@ -157,23 +161,23 @@ export default function TimeslotVotePage() {
   if (!state?.participantId) return null
 
   return (
-    <PageLayout title="시간 선택">
-      <PageSeo title="시간 선택" noIndex />
+    <PageLayout title={t('vote.timeslotPageTitle')}>
+      <PageSeo title={t('vote.timeslotPageTitle')} noIndex />
       <div className={styles.page}>
         <div className={styles.guide}>
           <svg className={styles.guideIcon} viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
             <path d="M8 3v5l3 3" /><circle cx="8" cy="8" r="6.5" />
           </svg>
-          <span className={styles.guideText}>가능한 시간을 드래그해서 선택해 주세요 · 08:00 – 23:30</span>
+          <span className={styles.guideText}>{t('vote.timeslotGuide')}</span>
         </div>
 
         {selected.size > 0 && (
           <div className={styles.selectionBar}>
             <span className={styles.selectionBarDot} />
             <span className={styles.selectionBarText}>
-              <span className={styles.selectionBarCount}>{selected.size}개</span> 시간 선택됨
+              <span className={styles.selectionBarCount}>{t('vote.timeslotSelectionCount', { count: selected.size })}</span> {t('vote.timeslotSelectionLabel')}
             </span>
-            <button className={styles.clearSelectedBtn} onClick={() => setSelected(new Set())}>전체 해제</button>
+            <button className={styles.clearSelectedBtn} onClick={() => setSelected(new Set())}>{t('vote.timeslotClearAll')}</button>
           </div>
         )}
 
@@ -230,7 +234,7 @@ export default function TimeslotVotePage() {
 
         <div className={styles.bottomBar}>
           <button className={styles.submitButton} onClick={handleSubmit} disabled={selected.size === 0 || submitTime.isPending}>
-            {submitTime.isPending ? '저장 중…' : selected.size === 0 ? '시간을 선택해 주세요' : `${selected.size}개 시간으로 투표하기`}
+            {submitTime.isPending ? t('vote.timeslotSubmitting') : selected.size === 0 ? t('vote.timeslotNoSelection') : t('vote.timeslotSubmit', { count: selected.size })}
           </button>
         </div>
       </div>

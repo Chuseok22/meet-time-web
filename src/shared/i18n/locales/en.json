@@ -1,0 +1,140 @@
+{
+  "common": {
+    "or": "or",
+    "loading": "Loading…",
+    "back": "Back",
+    "myPage": "My Page",
+    "error": {
+      "default": "An error occurred. Please try again later.",
+      "INVALID_REQUEST": "Please check your input and try again.",
+      "BASE_58_JOIN_CODE_PATTERN_MISMATCH": "Invalid join code format.",
+      "TOKEN_EXPIRED": "Your session has expired. Please log in again.",
+      "INVALID_TOKEN": "Invalid authentication. Please log in again.",
+      "INVALID_PASSWORD": "Incorrect password.",
+      "ACCESS_DENIED": "Access denied.",
+      "ROOM_DELETE_FORBIDDEN": "You don't have permission to delete this room.",
+      "PARTICIPANT_DELETE_FORBIDDEN": "You don't have permission to remove this participant.",
+      "MEETING_ROOM_NOT_FOUND": "This room does not exist.",
+      "PARTICIPANT_NOT_FOUND": "Participant not found.",
+      "USER_NOT_FOUND": "User not found.",
+      "DUPLICATE_USERNAME": "This name is already taken. Please choose a different one.",
+      "INTERNAL_SERVER_ERROR": "Server error. Please try again later."
+    }
+  },
+  "seo": {
+    "baseDescription": "Find the time that works for everyone. Create a room and see all participants' available slots at a glance.",
+    "ogDescription": "Find the time that works for everyone."
+  },
+  "home": {
+    "taglineKo": "모두가 되는 시간을 찾아드려요",
+    "taglineEn": "Find the time that works for everyone",
+    "kakaoLogin": "Continue with Kakao",
+    "googleLogin": "Continue with Google",
+    "googleLoading": "Signing in…",
+    "guestStart": "Continue as Guest",
+    "oauthError": "Something went wrong during sign-in. Please try again.",
+    "benefitsTitle": "Why create an account?",
+    "footer": "You can create and join rooms without signing in",
+    "benefit1Main": "View all your rooms at a glance",
+    "benefit1Sub": "Manage rooms you created and joined",
+    "benefit2Main": "Room management permissions",
+    "benefit2Sub": "You can delete rooms you created",
+    "benefit3Main": "Manage your participation records",
+    "benefit3Sub": "Easily cancel or edit your votes"
+  },
+  "select": {
+    "pageTitle": "Select Action",
+    "heading": "Create a meeting room",
+    "subtitle": "Create a new meeting or join one you were invited to",
+    "createRoom": "Create New Room",
+    "createRoomDesc": "Set a meeting name and dates to create a room",
+    "joinRoom": "Join a Room",
+    "joinRoomDesc": "Enter a join code to access an existing room"
+  },
+  "createRoom": {
+    "pageTitle": "Create New Room",
+    "roomNameLabel": "Meeting Name",
+    "roomNamePlaceholder": "e.g. Team Meeting, Study Group",
+    "dateSectionLabel": "Select Dates",
+    "dateSectionSub": "You can freely select multiple dates",
+    "prevMonth": "Previous month",
+    "nextMonth": "Next month",
+    "selectedDates": "Selected Dates",
+    "clearAll": "Clear All",
+    "emptyDateHint": "Please select dates from the calendar",
+    "submit": "Create Room",
+    "submitting": "Creating…",
+    "submitError": "Failed to create room. Please try again."
+  },
+  "joinRoom": {
+    "pageTitle": "Join a Room",
+    "heading": "Enter the join code",
+    "subtitle": "Enter the join code from the room host to get in instantly",
+    "codeLabel": "Join Code",
+    "codePlaceholder": "AB1-CD2",
+    "invalidCode": "Please enter a valid join code",
+    "roomNotFound": "Room not found. Please double-check the code.",
+    "roomFindError": "Could not find the room.",
+    "submit": "Enter Room",
+    "submitting": "Checking…"
+  },
+  "roomMain": {
+    "copyLink": "Copy Link",
+    "copied": "Copied!",
+    "noParticipants": "No participants yet",
+    "bestSlots": "Best Time Slots",
+    "vote": "Vote",
+    "participants": "Participants",
+    "totalParticipants": "{{count}} total"
+  },
+  "vote": {
+    "entryPageTitle": "Participant Info",
+    "entrySeoTitle": "Enter Participant Info",
+    "defaultRoomTitle": "Join Vote",
+    "heading": "What's your name?",
+    "subtitleLoggedIn": "Your social account name has been filled in automatically. You can change it if you'd like.",
+    "subtitleGuest": "This name will appear in the vote results. Use the same name next time to edit your vote.",
+    "nameLabel": "Name (Nickname)",
+    "namePlaceholder": "e.g. Alex",
+    "nameHint": "Come back with the same name to load and edit your existing vote",
+    "passwordLabel": "Password",
+    "passwordOptional": "Optional",
+    "passwordPlaceholder": "Set one so only you can edit",
+    "passwordHide": "Hide password",
+    "passwordShow": "Show password",
+    "passwordHint": "Even with the same name, the wrong password will block editing",
+    "returningNote": "Already voted? Come back with the same name (and password) to load and update your existing vote.",
+    "submit": "Select Time Slots",
+    "submitting": "Checking…",
+    "errorInvalidPassword": "Incorrect password.",
+    "errorDuplicateUsername": "This name is already in use by someone else.",
+    "errorDefault": "Failed to join. Please try again.",
+    "timeslotPageTitle": "Select Time",
+    "timeslotSubmit": "Submit Vote",
+    "timeslotSubmitting": "Submitting…"
+  },
+  "mypage": {
+    "pageTitle": "My Page",
+    "loginRequired": "Login required",
+    "loginRequiredDesc": "Sign in with a social account to manage your rooms and view your vote history.",
+    "goToLogin": "Go to Login",
+    "logout": "Log Out",
+    "withdraw": "Delete Account",
+    "withdrawError": "An error occurred while deleting your account. Please try again."
+  },
+  "myRooms": {
+    "pageTitle": "My Rooms",
+    "createdTab": "Rooms I Created",
+    "joinedTab": "Rooms I Joined",
+    "emptyCreated": "No rooms created yet",
+    "emptyJoined": "No rooms joined yet"
+  },
+  "error": {
+    "notFound": "Page not found",
+    "serverError": "Something went wrong",
+    "notFoundDesc": "The page you requested doesn't exist or has been moved.",
+    "serverErrorDesc": "A temporary error occurred. Please try again later.",
+    "goHome": "Go Home",
+    "goBack": "Go Back"
+  }
+}

@@ -134,14 +134,17 @@
     "goToLogin": "로그인하러 가기",
     "logout": "로그아웃",
     "withdraw": "탈퇴하기",
-    "withdrawError": "탈퇴 처리 중 오류가 발생했어요. 다시 시도해 주세요."
+    "withdrawError": "탈퇴 처리 중 오류가 발생했어요. 다시 시도해 주세요.",
+    "myRoomsList": "내 방 목록"
   },
   "myRooms": {
     "pageTitle": "내 방 목록",
     "createdTab": "내가 만든 방",
     "joinedTab": "참여한 방",
     "emptyCreated": "아직 만든 방이 없어요",
-    "emptyJoined": "아직 참여한 방이 없어요"
+    "emptyJoined": "아직 참여한 방이 없어요",
+    "ownerBadge": "방장",
+    "codeLabel": "코드"
   },
   "error": {
     "notFound": "페이지를 찾을 수 없어요",

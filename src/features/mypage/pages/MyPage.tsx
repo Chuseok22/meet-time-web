@@ -1,14 +1,17 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import PageLayout from '@/shared/components/ui/PageLayout'
 import PageSeo from '@/shared/components/seo/PageSeo'
 import { useMe, useDeleteMe } from '@/features/auth/hooks/useUser'
 import { tokenStorage } from '@/shared/api/apiClient'
 import { ApiException } from '@/shared/types/api.types'
+import { getErrorKey } from '@/shared/constants/errorCodes'
 import styles from './MyPage.module.css'
 
 export default function MyPage() {
   const navigate = useNavigate()
+  const { t } = useTranslation()
   const { data: me, isLoading } = useMe()
   const deleteMe = useDeleteMe()
   const isLoggedIn = tokenStorage.get() !== null
@@ -28,16 +31,16 @@ export default function MyPage() {
       navigate('/', { replace: true })
     } catch (err) {
       if (err instanceof ApiException) {
-        setWithdrawError(err.errorMessage)
+        setWithdrawError(t(getErrorKey(err.errorCode)))
       } else {
-        setWithdrawError('탈퇴 처리 중 오류가 발생했어요. 다시 시도해 주세요.')
+        setWithdrawError(t('mypage.withdrawError'))
       }
     }
   }
 
   return (
-    <PageLayout title="마이페이지" showBack onBack={() => navigate('/select')}>
-      <PageSeo title="마이페이지" noIndex />
+    <PageLayout title={t('mypage.pageTitle')} showBack onBack={() => navigate('/select')}>
+      <PageSeo title={t('mypage.pageTitle')} noIndex />
       <div className={styles.page}>
         {!isLoggedIn ? (
           <div className={styles.loginPrompt}>
@@ -45,16 +48,16 @@ export default function MyPage() {
               <circle cx="22" cy="16" r="8" />
               <path d="M6 40c0-8.837 7.163-16 16-16s16 7.163 16 16" />
             </svg>
-            <span className={styles.loginPromptTitle}>로그인이 필요해요</span>
+            <span className={styles.loginPromptTitle}>{t('mypage.loginRequired')}</span>
             <span className={styles.loginPromptDesc}>
-              소셜 계정으로 로그인하면 방 목록 관리, 투표 기록 확인 등을 이용할 수 있어요
+              {t('mypage.loginDesc')}
             </span>
             <button className={styles.loginBtn} onClick={() => navigate('/')}>
-              로그인하러 가기
+              {t('mypage.goToLogin')}
             </button>
           </div>
         ) : isLoading ? (
-          <div className={styles.loading}>불러오는 중…</div>
+          <div className={styles.loading}>{t('common.loading')}</div>
         ) : me ? (
           <>
             {/* 프로필 카드 */}
@@ -73,7 +76,7 @@ export default function MyPage() {
                   <rect x="1.5" y="3" width="15" height="12" rx="2" />
                   <path d="M1.5 7h15M5 1.5v3M13 1.5v3" />
                 </svg>
-                <span className={styles.menuLabel}>내 방 목록</span>
+                <span className={styles.menuLabel}>{t('mypage.myRoomsList')}</span>
                 <svg className={styles.menuArrow} viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M5 3l4 4-4 4" />
                 </svg>
@@ -87,7 +90,7 @@ export default function MyPage() {
                   <path d="M6.5 9h8M12 6l3 3-3 3" />
                   <path d="M10 2H3a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h7" />
                 </svg>
-                <span className={styles.menuLabel}>로그아웃</span>
+                <span className={styles.menuLabel}>{t('mypage.logout')}</span>
                 <svg className={styles.menuArrow} viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M5 3l4 4-4 4" />
                 </svg>
@@ -98,7 +101,7 @@ export default function MyPage() {
                   <path d="M2.5 16.5c0-3.59 2.91-6.5 6.5-6.5s6.5 2.91 6.5 6.5" />
                   <path d="M13 3l3 3M16 3l-3 3" />
                 </svg>
-                <span className={styles.menuLabel}>회원 탈퇴</span>
+                <span className={styles.menuLabel}>{t('mypage.withdraw')}</span>
                 <svg className={styles.menuArrow} viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M5 3l4 4-4 4" />
                 </svg>
@@ -120,9 +123,9 @@ export default function MyPage() {
                 <path d="M12 7v5M12 15.5v.5" />
               </svg>
             </div>
-            <h3 className={styles.modalTitle}>정말 탈퇴하시겠어요?</h3>
+            <h3 className={styles.modalTitle}>{t('mypage.withdrawConfirmTitle')}</h3>
             <p className={styles.modalDesc}>
-              탈퇴 시 계정 정보와 투표 기록이 모두 삭제돼요. 이미 만든 방과 참여 기록은 복구할 수 없어요.
+              {t('mypage.withdrawConfirmDesc')}
             </p>
             {withdrawError && (
               <p className={styles.modalError}>{withdrawError}</p>
@@ -133,14 +136,14 @@ export default function MyPage() {
                 onClick={() => { setShowWithdrawConfirm(false); setWithdrawError('') }}
                 disabled={deleteMe.isPending}
               >
-                취소
+                {t('mypage.withdrawCancel')}
               </button>
               <button
                 className={styles.modalConfirmBtn}
                 onClick={handleWithdrawConfirm}
                 disabled={deleteMe.isPending}
               >
-                {deleteMe.isPending ? '처리 중…' : '탈퇴하기'}
+                {deleteMe.isPending ? t('mypage.withdrawPending') : t('mypage.withdrawConfirm')}
               </button>
             </div>
           </div>

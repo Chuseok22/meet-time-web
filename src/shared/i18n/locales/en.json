@@ -134,14 +134,17 @@
     "goToLogin": "Go to Login",
     "logout": "Log Out",
     "withdraw": "Delete Account",
-    "withdrawError": "An error occurred while deleting your account. Please try again."
+    "withdrawError": "An error occurred while deleting your account. Please try again.",
+    "myRoomsList": "My Rooms"
   },
   "myRooms": {
     "pageTitle": "My Rooms",
     "createdTab": "Rooms I Created",
     "joinedTab": "Rooms I Joined",
     "emptyCreated": "No rooms created yet",
-    "emptyJoined": "No rooms joined yet"
+    "emptyJoined": "No rooms joined yet",
+    "ownerBadge": "Host",
+    "codeLabel": "Code"
   },
   "error": {
     "notFound": "Page not found",

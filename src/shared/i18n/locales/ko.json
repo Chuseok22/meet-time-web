@@ -109,7 +109,7 @@
     "subtitleLoggedIn": "소셜 계정 이름이 자동으로 입력됐어요. 원하시면 변경할 수 있어요.",
     "subtitleGuest": "투표 결과에 표시될 이름이에요. 다음에 수정하려면 같은 이름으로 들어오면 돼요.",
     "nameLabel": "이름 (닉네임)",
-    "namePlaceholder": "예: 추석이",
+    "namePlaceholder": "예: 닉네임123",
     "nameHint": "같은 이름으로 다시 들어오면 기존 투표를 수정할 수 있어요",
     "passwordLabel": "비밀번호",
     "passwordOptional": "선택",

@@ -63,10 +63,6 @@
   line-height: var(--leading-tight);
 }
 
-.logoDot {
-  color: var(--color-accent);
-}
-
 .tagline {
   text-align: center;
 }

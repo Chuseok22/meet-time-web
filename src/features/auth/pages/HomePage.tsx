@@ -98,7 +98,7 @@ export default function HomePage() {
 
           <div>
             <h1 className={styles.logoText}>
-              meet<span className={styles.logoDot}>·</span>time
+              Meet Time
             </h1>
           </div>
 
